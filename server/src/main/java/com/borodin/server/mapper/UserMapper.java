@@ -19,7 +19,7 @@ public class UserMapper implements RowMapper<User> {
         entity.setPassword(rs.getString("password"));
         entity.setPhone(rs.getString("phone"));
         entity.setEmail(rs.getString("email"));
-        entity.setRole(Role.getInstance(rs.getInt("role")));
+        entity.setRole(Role.getInstance(rs.getInt("role_id")));
         return entity;
     }
 }

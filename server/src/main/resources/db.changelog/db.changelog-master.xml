@@ -7,10 +7,6 @@
    http://www.liquibase.org/xml/ns/dbchangelog
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="create_roles" author="Maria">
-        <sqlFile path="./changesets/001_create_roles.sql" />
-    </changeSet>
-
     <changeSet id="create_users" author="Maria">
         <sqlFile path="./changesets/002_create_users.sql" />
     </changeSet>

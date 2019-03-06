@@ -1,16 +1,19 @@
 package com.borodin.server.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
-
 import javax.sql.DataSource;
 
 public abstract class Dao <T> implements IDao<Long, T> {
 
-    @Autowired
-    private DataSource dataSource;
 
-    protected JdbcTemplate jdbcTemplateObject = new JdbcTemplate(dataSource);
+     private static ApplicationContext context = new ClassPathXmlApplicationContext("DataSourceBean.xml");
+
+     private static DataSource dataSource =
+            (DataSource) context.getBean("dataSource");
+
+    protected static JdbcTemplate jdbcTemplateObject = new JdbcTemplate(dataSource);
 
     private String tableName;
 
