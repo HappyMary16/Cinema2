@@ -20,25 +20,44 @@ public class UserDao extends Dao<User> {
 
     @Override
     public User getById(Long id) {
-        return jdbcTemplateObject.queryForObject(SQL_SELECT_BY_ID,
-                new Object[]{id}, new UserMapper());
+        return jdbcTemplateObject.queryForObject(SQL_SELECT_BY_ID, new Object[]{id}, new UserMapper());
     }
 
     @Override
-    public void update(User entity) {
-        String SQL = "UPDATE user SET first_name = ?, last_name = ?," +
-                " login = ?, password = ?, phone = ?, email = ? WHERE id = ?";
+    public User update(User entity) {
+        String SQL = "UPDATE user " +
+                "SET first_name = ?, last_name = ?, login = ?, password = ?, phone = ?, email = ?, role_id = ? " +
+                "WHERE id = ?";
 
-        long id = (long) jdbcTemplateObject.update(SQL, entity.getFirstName(), entity.getLastName(), entity.getLogin(),
-                entity.getPassword(), entity.getPhone(), entity.getEmail(), entity.getId());
+        jdbcTemplateObject.update(
+                SQL,
+                entity.getFirstName(),
+                entity.getLastName(),
+                entity.getLogin(),
+                entity.getPassword(),
+                entity.getPhone(),
+                entity.getEmail(),
+                entity.getRole().getId(),
+                entity.getId());
 
-        entity.setId(id);
+        return getById(entity.getId());
     }
 
     @Override
-    public void create(User entity) {
-        String SQL = "INSERT INTO user (first_name, last_name, login, password, phone, email, role_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        jdbcTemplateObject.update(SQL, entity.getFirstName(), entity.getLastName(), entity.getLogin(),
-                entity.getPassword(), entity.getPhone(), entity.getEmail(), entity.getRole().getId());
+    public User create(User entity) {
+        String SQL = "INSERT INTO user (first_name, last_name, login, password, phone, email, role_id) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        long id = (long) jdbcTemplateObject.update(
+                SQL,
+                entity.getFirstName(),
+                entity.getLastName(),
+                entity.getLogin(),
+                entity.getPassword(),
+                entity.getPhone(),
+                entity.getEmail(),
+                entity.getRole().getId());
+
+        return getById(id);
     }
 }
