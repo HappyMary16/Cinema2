@@ -10,13 +10,7 @@ CREATE TABLE `user` (
 	PRIMARY KEY (`id`),
 	UNIQUE INDEX `id` (`id`),
 	UNIQUE INDEX `login` (`login`),
-	UNIQUE INDEX `phone` (`phone`),
-	INDEX `user_role_idx` (`role_id` ASC) VISIBLE,
-  CONSTRAINT `user_role`
-    FOREIGN KEY (`role_id`)
-    REFERENCES `role` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
+	UNIQUE INDEX `phone` (`phone`)
 )
 COLLATE='utf8mb4_0900_ai_ci'
 ENGINE=InnoDB;
