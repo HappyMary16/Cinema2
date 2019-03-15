@@ -7,16 +7,60 @@
    http://www.liquibase.org/xml/ns/dbchangelog
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="create_users" author="Maria">
-        <sqlFile path="./changesets/002_create_users.sql" />
+    <changeSet id="create_role" author="Maria">
+        <sqlFile path="./changesets/001_create_role.sql" />
+    </changeSet>
+
+    <changeSet id="create_user" author="Maria">
+        <sqlFile path="./changesets/002_create_user.sql" />
+    </changeSet>
+
+    <changeSet id="create_film" author="Maria">
+        <sqlFile path="./changesets/003_create_film.sql" />
+    </changeSet>
+
+    <changeSet id="create_genre" author="Maria">
+        <sqlFile path="./changesets/004_create_genre.sql" />
+    </changeSet>
+
+    <changeSet id="create_person" author="Maria">
+        <sqlFile path="./changesets/005_create_person.sql" />
+    </changeSet>
+
+    <changeSet id="create_country" author="Maria">
+        <sqlFile path="./changesets/006_create_country.sql" />
+    </changeSet>
+
+    <changeSet id="create_studio" author="Maria">
+        <sqlFile path="./changesets/007_create_studio.sql" />
+    </changeSet>
+
+    <changeSet id="create_film_director" author="Maria">
+        <sqlFile path="./changesets/008_create_film_director.sql" />
+    </changeSet>
+
+    <changeSet id="create_film_actor" author="Maria">
+        <sqlFile path="./changesets/009_create_film_actors.sql" />
+    </changeSet>
+
+    <changeSet id="create_film_country" author="Maria">
+        <sqlFile path="./changesets/010_create_film_country.sql" />
+    </changeSet>
+
+    <changeSet id="create_film_genre" author="Maria">
+        <sqlFile path="./changesets/011_create_film_genre.sql" />
+    </changeSet>
+
+    <changeSet id="create_film_studio" author="Maria">
+        <sqlFile path="./changesets/012_create_film_studio.sql" />
     </changeSet>
 
     <changeSet id="create_halls" author="Maria">
-        <sqlFile path="./changesets/002_create_halls.sql" />
+        <sqlFile path="./changesets/013_create_hall.sql" />
     </changeSet>
 
-    <changeSet id="create_persons" author="Maria">
-        <sqlFile path="./changesets/005_create_persons.sql" />
+    <changeSet id="create_placement" author="Maria">
+        <sqlFile path="./changesets/014_create_placement.sql" />
     </changeSet>
 
 </databaseChangeLog>

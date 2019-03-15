@@ -12,10 +12,9 @@ import java.util.List;
 
 public abstract class Dao <T> implements IDao<Long, T> {
 
-
      private static ApplicationContext context = new ClassPathXmlApplicationContext("DataSourceBean.xml");
 
-     private static DataSource dataSource =
+     protected static DataSource dataSource =
             (DataSource) context.getBean("dataSource");
 
     protected static JdbcTemplate jdbcTemplateObject = new JdbcTemplate(dataSource);
@@ -38,7 +37,7 @@ public abstract class Dao <T> implements IDao<Long, T> {
         SQL_SELECT_ALL = String.format("SELECT * FROM %s", tableName);
         SQL_SELECT_BY_ID = String.format("SELECT * FROM %s WHERE id = ?", tableName);
         SQL_DELETE_BY_ID = String.format("DELETE FROM %s WHERE id = ?", tableName);
-        SQL_SELECT_ALL_BY_COLUMN = String.format("SELECT * FROM %s WHERE %s = ?", tableName);
+        SQL_SELECT_ALL_BY_COLUMN = String.format("SELECT * FROM %s WHERE %s = ?", tableName, "%s");
     }
 
     @Override

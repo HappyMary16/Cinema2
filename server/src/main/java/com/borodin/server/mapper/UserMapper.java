@@ -1,6 +1,5 @@
 package com.borodin.server.mapper;
 
-import com.borodin.server.domain.Role;
 import com.borodin.server.domain.User;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -19,7 +18,7 @@ public class UserMapper implements RowMapper<User> {
         entity.setPassword(rs.getString("password"));
         entity.setPhone(rs.getString("phone"));
         entity.setEmail(rs.getString("email"));
-        entity.setRole(Role.getInstance(rs.getInt("role_id")));
+        entity.setRoleId(rs.getLong("role_id"));
         return entity;
     }
 }

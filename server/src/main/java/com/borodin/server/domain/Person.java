@@ -13,5 +13,5 @@ public class Person extends Entity {
 
     private String lastName;
 
-    private Role role;
+    private Long roleId;
 }
