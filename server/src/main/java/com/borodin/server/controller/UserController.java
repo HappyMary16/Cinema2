@@ -17,7 +17,7 @@ public class UserController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public User getUser(@PathVariable(value = "id") Long id) {
-        return userDao.getById(id);
+        return userDao.findById(id);
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
