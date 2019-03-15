@@ -12,7 +12,7 @@ public class StudioMapper implements RowMapper<Studio> {
     public Studio mapRow(ResultSet rs, int i) throws SQLException {
         Studio entity = new Studio();
         entity.setId(rs.getLong("id"));
-        entity.setStudio(rs.getString("genre"));
+        entity.setStudio(rs.getString("studio"));
         return entity;
     }
 }

@@ -5,13 +5,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.List;
 
-@Repository
 public class FilmDataDao<T extends Entity> implements IFilmDataDao<T> {
 
     private static ApplicationContext context = new ClassPathXmlApplicationContext("DataSourceBean.xml");

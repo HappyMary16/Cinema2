@@ -28,7 +28,7 @@ public class FilmDao extends Dao<Film> {
         jdbcTemplateObject.update(
                 SQL,
                 entity.getTitle(),
-                entity.getDescribe(),
+                entity.getDescription(),
                 entity.getYear(),
                 entity.getMinAge(),
                 entity.getDuration(),
@@ -57,7 +57,7 @@ public class FilmDao extends Dao<Film> {
                     try {
                         ps = connection.prepareStatement(SQL, new String[]{"id"});
                         ps.setString(1, entity.getTitle());
-                        ps.setString(2, entity.getDescribe());
+                        ps.setString(2, entity.getDescription());
                         ps.setLong(3, entity.getYear());
                         ps.setLong(4, entity.getMinAge());
                         ps.setTime(5, new Time(entity.getDuration().getTime()));

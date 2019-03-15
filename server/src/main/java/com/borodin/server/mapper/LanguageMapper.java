@@ -11,7 +11,7 @@ public class LanguageMapper implements RowMapper<Language> {
     public Language mapRow(ResultSet rs, int i) throws SQLException {
         Language entity = new Language();
         entity.setId(rs.getLong("id"));
-        entity.setLanguage(rs.getString("genre"));
+        entity.setLanguage(rs.getString("language"));
         return entity;
     }
 }
