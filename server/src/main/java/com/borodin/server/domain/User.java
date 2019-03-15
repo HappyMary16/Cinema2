@@ -21,5 +21,5 @@ public class User extends Entity {
 
     private String email;
 
-    private Role role;
+    private Long roleId;
 }

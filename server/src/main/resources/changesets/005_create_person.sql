@@ -5,7 +5,12 @@ CREATE TABLE `person` (
 	`role_id` INT(11) NOT NULL,
 	PRIMARY KEY (`id`),
 	UNIQUE INDEX `id` (`id`),
-	UNIQUE INDEX `first_name_last_name` (`first_name`, `last_name`)
+	UNIQUE INDEX `first_name_last_name` (`first_name`, `last_name`),
+	CONSTRAINT `role`
+    FOREIGN KEY (`role_id`)
+    REFERENCES `role` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 )
 COLLATE='utf8mb4_0900_ai_ci'
 ENGINE=InnoDB

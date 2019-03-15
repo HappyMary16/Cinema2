@@ -1,35 +1,32 @@
 package com.borodin.server.dao;
 
-import com.borodin.server.domain.User;
-import com.borodin.server.mapper.UserMapper;
+import com.borodin.server.domain.Person;
+import com.borodin.server.mapper.PersonMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 @Repository
-public class UserDao extends Dao<User> {
+public class PersonDao extends Dao<Person>{
 
-    public UserDao() {
-        super(User.class, new UserMapper());
+    public PersonDao() {
+        super(Person.class, new PersonMapper());
     }
 
     @Override
-    public User update(User entity) {
-        String SQL = "UPDATE user " +
-                "SET first_name = ?, last_name = ?, login = ?, password = ?, phone = ?, email = ?, role_id = ? " +
+    public Person update(Person entity) {
+        String SQL = "UPDATE person " +
+                "SET first_name = ?, last_name = ?, role_id = ? " +
                 "WHERE id = ?";
 
         jdbcTemplateObject.update(
                 SQL,
                 entity.getFirstName(),
                 entity.getLastName(),
-                entity.getLogin(),
-                entity.getPassword(),
-                entity.getPhone(),
-                entity.getEmail(),
                 entity.getRoleId(),
                 entity.getId());
 
@@ -37,9 +34,9 @@ public class UserDao extends Dao<User> {
     }
 
     @Override
-    public User create(User entity) {
-        String SQL = "INSERT INTO user (first_name, last_name, login, password, phone, email, role_id) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public Person create(Person entity) {
+        String SQL = "INSERT INTO person (first_name, last_name, role_id) " +
+                "VALUES (?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -50,11 +47,7 @@ public class UserDao extends Dao<User> {
                         ps = connection.prepareStatement(SQL, new String[]{"id"});
                         ps.setString(1, entity.getFirstName());
                         ps.setString(2, entity.getLastName());
-                        ps.setString(3, entity.getLogin());
-                        ps.setString(4, entity.getPassword());
-                        ps.setString(5, entity.getPhone());
-                        ps.setString(6, entity.getEmail());
-                        ps.setLong(7, entity.getRoleId());
+                        ps.setLong(3, entity.getRoleId());
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -66,5 +59,4 @@ public class UserDao extends Dao<User> {
 
         return entity;
     }
-
 }

@@ -6,11 +6,11 @@ public interface IService<K, V> {
 
     List<V> getAll();
 
-    V getById(K id);
+    V findById(K id);
 
     void deleteById(K id);
 
     void update(V entity);
 
-    void create(V entity);
+    V create(V entity);
 }

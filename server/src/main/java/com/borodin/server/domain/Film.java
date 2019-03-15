@@ -15,7 +15,7 @@ public class Film extends Entity {
 
     private String title;
 
-    private String describe;
+    private String description;
 
     private Integer minAge;
 
@@ -29,7 +29,7 @@ public class Film extends Entity {
 
     private List<Country> countries;
 
-    private Integer duration;
+    private Date duration;
 
     private Language language;
 
