@@ -26,12 +26,12 @@ public class FilmDataDao<T extends Entity> implements IFilmDataDao<T> {
     public static final String DELETE_ALL_BY_ID = "DELETE FROM film_%s WHERE film_id = ?";
     public static final String INSERT_ALL_BY_ID = "INSERT INTO film_%s (film_id, %s_id) VALUES (?, ?)";
 
-    public FilmDataDao(Class<T> type) {
-        this.type = type.getSimpleName();
+    public FilmDataDao(String tableType) {
+        this.type = tableType;
     }
 
     @Override
-    public void insertDataByFilmId(List<T> data, int filmId) {
+    public void insertDataByFilmId(List<T> data, Long filmId) {
         String SQL = String.format(INSERT_ALL_BY_ID, type, type);
 
         for (Entity entity :
@@ -52,7 +52,7 @@ public class FilmDataDao<T extends Entity> implements IFilmDataDao<T> {
     }
 
     @Override
-    public List<T> getAllByFilmId(int filmId, RowMapper<T> mapper) {
+    public List<T> getAllByFilmId(Long filmId, RowMapper<T> mapper) {
         String sql = String.format(GET_ALL_BY_ID, type,
                 (type.equalsIgnoreCase("actor")
                         || type.equalsIgnoreCase("director")
@@ -71,13 +71,13 @@ public class FilmDataDao<T extends Entity> implements IFilmDataDao<T> {
     }
 
     @Override
-    public void deleteAllByFilmId(int filmId) {
+    public void deleteAllByFilmId(Long filmId) {
         String sql = String.format(DELETE_ALL_BY_ID, type);
         jdbcTemplateObject.update(sql, filmId);
     }
 
     @Override
-    public void updateAllByFilmId(int filmId, List<T> newData) {
+    public void updateAllByFilmId(Long filmId, List<T> newData) {
         deleteAllByFilmId(filmId);
         insertDataByFilmId(newData, filmId);
     }

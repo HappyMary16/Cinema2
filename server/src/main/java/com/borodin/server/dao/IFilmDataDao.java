@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface IFilmDataDao<T extends Entity> {
 
-    void insertDataByFilmId(List<T> data, int filmId);
+    void insertDataByFilmId(List<T> data, Long filmId);
 
-    List<T> getAllByFilmId(int filmId, RowMapper<T> mapper);
+    List<T> getAllByFilmId(Long filmId, RowMapper<T> mapper);
 
-    void deleteAllByFilmId(int filmId);
+    void deleteAllByFilmId(Long filmId);
 
-    void updateAllByFilmId(int filmId, List<T> newData);
+    void updateAllByFilmId(Long filmId, List<T> newData);
 }
