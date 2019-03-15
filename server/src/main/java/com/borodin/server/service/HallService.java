@@ -4,10 +4,12 @@ import com.borodin.server.dao.HallDao;
 import com.borodin.server.dao.PlacementDao;
 import com.borodin.server.domain.Hall;
 import com.borodin.server.domain.Place;
+import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 import java.util.List;
 
+@Service
 public class HallService implements IService<Long, Hall> {
 
     HallDao hallDao = new HallDao();
