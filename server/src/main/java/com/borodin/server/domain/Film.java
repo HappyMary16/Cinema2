@@ -15,7 +15,7 @@ public class Film extends Entity {
 
     private String title;
 
-    private String describe;
+    private String description;
 
     private Integer minAge;
 

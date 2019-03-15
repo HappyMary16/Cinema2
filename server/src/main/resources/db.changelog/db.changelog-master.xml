@@ -15,12 +15,12 @@
         <sqlFile path="./changesets/002_create_user.sql" />
     </changeSet>
 
-    <changeSet id="create_film" author="Maria">
-        <sqlFile path="./changesets/003_create_film.sql" />
+    <changeSet id="create_language" author="Maria">
+        <sqlFile path="./changesets/003_create_language.sql" />
     </changeSet>
 
-    <changeSet id="create_genre" author="Maria">
-        <sqlFile path="./changesets/004_create_genre.sql" />
+    <changeSet id="create_film" author="Maria">
+        <sqlFile path="./changesets/004_create_film.sql" />
     </changeSet>
 
     <changeSet id="create_person" author="Maria">
@@ -35,8 +35,8 @@
         <sqlFile path="./changesets/007_create_studio.sql" />
     </changeSet>
 
-    <changeSet id="create_film_director" author="Maria">
-        <sqlFile path="./changesets/008_create_film_director.sql" />
+    <changeSet id="create_genre" author="Maria">
+        <sqlFile path="./changesets/008_create_genre.sql" />
     </changeSet>
 
     <changeSet id="create_film_actor" author="Maria">
@@ -55,12 +55,16 @@
         <sqlFile path="./changesets/012_create_film_studio.sql" />
     </changeSet>
 
+    <changeSet id="create_film_director" author="Maria">
+        <sqlFile path="./changesets/013_create_film_director.sql" />
+    </changeSet>
+
     <changeSet id="create_halls" author="Maria">
-        <sqlFile path="./changesets/013_create_hall.sql" />
+        <sqlFile path="./changesets/014_create_hall.sql" />
     </changeSet>
 
     <changeSet id="create_placement" author="Maria">
-        <sqlFile path="./changesets/014_create_placement.sql" />
+        <sqlFile path="./changesets/015_create_placement.sql" />
     </changeSet>
 
 </databaseChangeLog>
