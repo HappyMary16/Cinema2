@@ -7,3 +7,8 @@ CREATE TABLE `role` (
 )
 COLLATE='utf8mb4_0900_ai_ci'
 ENGINE=InnoDB;
+
+INSERT INTO role(role) VALUES('admin');
+INSERT INTO role(role) VALUES('user');
+INSERT INTO role(role) VALUES('director');
+INSERT INTO role(role) VALUES('actor');

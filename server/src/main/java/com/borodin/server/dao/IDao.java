@@ -1,8 +1,10 @@
 package com.borodin.server.dao;
 
+import com.borodin.server.domain.Entity;
+
 import java.util.List;
 
-public interface IDao <K, V>{
+public interface IDao <K, V extends Entity>{
 
     List<V> getAll();
 

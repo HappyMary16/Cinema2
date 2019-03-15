@@ -8,9 +8,10 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 @Repository
-public class PersonDao extends Dao<Person> {
+public class PersonDao extends Dao<Person>{
 
     public PersonDao() {
         super(Person.class, new PersonMapper());
@@ -18,7 +19,7 @@ public class PersonDao extends Dao<Person> {
 
     @Override
     public Person update(Person entity) {
-        String SQL = "UPDATE user " +
+        String SQL = "UPDATE person " +
                 "SET first_name = ?, last_name = ?, role_id = ? " +
                 "WHERE id = ?";
 
@@ -34,7 +35,7 @@ public class PersonDao extends Dao<Person> {
 
     @Override
     public Person create(Person entity) {
-        String SQL = "INSERT INTO user (first_name, last_name, role_id) " +
+        String SQL = "INSERT INTO person (first_name, last_name, role_id) " +
                 "VALUES (?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();

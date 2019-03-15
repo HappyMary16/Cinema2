@@ -29,7 +29,7 @@ public class Film extends Entity {
 
     private List<Country> countries;
 
-    private Integer duration;
+    private Date duration;
 
     private Language language;
 

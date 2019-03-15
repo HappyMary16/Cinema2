@@ -1,0 +1,84 @@
+package com.borodin.server.dao;
+
+import com.borodin.server.domain.Entity;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
+
+import javax.sql.DataSource;
+import java.sql.*;
+import java.util.List;
+
+@Repository
+public class FilmDataDao<T extends Entity> implements IFilmDataDao<T> {
+
+    private static ApplicationContext context = new ClassPathXmlApplicationContext("DataSourceBean.xml");
+
+    protected static DataSource dataSource = (DataSource) context.getBean("dataSource");
+
+    protected static JdbcTemplate jdbcTemplateObject = new JdbcTemplate(dataSource);
+
+    private String type;
+
+    public static final String GET_ALL_BY_ID = "SELECT * FROM film_%s INNER JOIN %s ON film_%s = id WHERE film_id = ?";
+    public static final String DELETE_ALL_BY_ID = "DELETE FROM film_%s WHERE film_id = ?";
+    public static final String INSERT_ALL_BY_ID = "INSERT INTO film_%s (film_id, %s_id) VALUES (?, ?)";
+
+    public FilmDataDao(Class<T> type) {
+        this.type = type.getSimpleName();
+    }
+
+    @Override
+    public void insertDataByFilmId(List<T> data, int filmId) {
+        String SQL = String.format(INSERT_ALL_BY_ID, type, type);
+
+        for (Entity entity :
+                data) {
+            jdbcTemplateObject.update(
+                    connection -> {
+                        PreparedStatement ps = null;
+                        try {
+                            ps = connection.prepareStatement(SQL);
+                            ps.setLong(1, filmId);
+                            ps.setLong(2, entity.getId());
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                        return ps;
+                    });
+        }
+    }
+
+    @Override
+    public List<T> getAllByFilmId(int filmId, RowMapper<T> mapper) {
+        String sql = String.format(GET_ALL_BY_ID, type,
+                (type.equalsIgnoreCase("actor")
+                        || type.equalsIgnoreCase("director")
+                        ? "person" : type), type);
+
+        return jdbcTemplateObject.query(connection -> {
+            PreparedStatement ps = null;
+            try {
+                ps = connection.prepareStatement(sql);
+                ps.setLong(1, filmId);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return ps;
+        }, mapper);
+    }
+
+    @Override
+    public void deleteAllByFilmId(int filmId) {
+        String sql = String.format(DELETE_ALL_BY_ID, type);
+        jdbcTemplateObject.update(sql, filmId);
+    }
+
+    @Override
+    public void updateAllByFilmId(int filmId, List<T> newData) {
+        deleteAllByFilmId(filmId);
+        insertDataByFilmId(newData, filmId);
+    }
+}

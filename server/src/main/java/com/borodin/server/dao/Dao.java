@@ -1,5 +1,6 @@
 package com.borodin.server.dao;
 
+import com.borodin.server.domain.Entity;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -10,16 +11,16 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-public abstract class Dao <T> implements IDao<Long, T> {
+public abstract class Dao<T extends Entity> implements IDao<Long, T> {
 
-     private static ApplicationContext context = new ClassPathXmlApplicationContext("DataSourceBean.xml");
+    private static ApplicationContext context = new ClassPathXmlApplicationContext("DataSourceBean.xml");
 
-     protected static DataSource dataSource =
+    protected static DataSource dataSource =
             (DataSource) context.getBean("dataSource");
 
     protected static JdbcTemplate jdbcTemplateObject = new JdbcTemplate(dataSource);
 
-    private String tableName;
+    protected String tableName;
 
     private RowMapper<T> mapper;
 
