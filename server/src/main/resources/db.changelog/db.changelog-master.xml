@@ -67,4 +67,8 @@
         <sqlFile path="./changesets/015_create_placement.sql" />
     </changeSet>
 
+    <changeSet id="create_seance" author="Maria">
+        <sqlFile path="./changesets/016_create_seance.sql" />
+    </changeSet>
+
 </databaseChangeLog>
