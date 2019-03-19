@@ -11,7 +11,7 @@ class UserList extends Component {
     }
 
     componentWillMount() {
-        const GET_ALL_URL = "/users/all";
+        const GET_ALL_URL = "http://localhost:8080/users/all";
         axios.get(GET_ALL_URL)
             .then(response => {
                 this.setState({users: response.data});
@@ -19,7 +19,7 @@ class UserList extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const GET_ALL_URL = "/users/all";
+        const GET_ALL_URL = "http://localhost:8080/users/all";
         axios.get(GET_ALL_URL)
             .then(response => {
                 this.setState({users: response.data});
@@ -39,6 +39,11 @@ class UserList extends Component {
                         <span>id: {d.id}</span>
                         <span>First name: {d.firstName}</span>
                         <span>Last name: {d.lastName}</span>
+                        <span>Login: {d.login}</span>
+                        <span>Password: {d.password}</span>
+                        <span>Phone: {d.phone}</span>
+                        <span>Email: {d.email}</span>
+                        <span>Role: {d.roleId}</span>
                     </li>)
                 })}
             </div>
