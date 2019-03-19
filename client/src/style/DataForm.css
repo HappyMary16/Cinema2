@@ -1,0 +1,9 @@
+#content {
+    position: absolute;
+    overflow: auto;
+    padding: 10px;
+    top: 0px; /* Расстояние от верхнего края */
+    left: 250px; /* Расстояние от левого края */
+    bottom: 0;
+    right: 0;
+}
