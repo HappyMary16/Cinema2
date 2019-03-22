@@ -2,6 +2,7 @@ package com.borodin.server.controller;
 
 import com.borodin.server.dao.PersonDao;
 import com.borodin.server.domain.Person;
+import com.borodin.server.domain.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,4 +28,15 @@ public class PersonController {
     public List<Person> getAll() {
         return personDao.getAll();
     }
+
+    @RequestMapping(value = "/all_actors", method = RequestMethod.GET)
+    public List<Person> getAllActors() {
+        return personDao.findAllBy("role_id", "4");
+    }
+
+    @RequestMapping(value = "/all_directors", method = RequestMethod.GET)
+    public List<Person> getAllDirector() {
+        return personDao.findAllBy("role_id", "3");
+    }
+
 }

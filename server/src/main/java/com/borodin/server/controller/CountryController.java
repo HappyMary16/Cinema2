@@ -9,7 +9,7 @@ import java.util.List;
 @RestController
 @CrossOrigin("*")
 @RequestMapping(value = "/countries")
-public class CountyController {
+public class CountryController {
 
     private CountryDao countryDao = new CountryDao();
 

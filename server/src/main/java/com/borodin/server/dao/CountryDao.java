@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 @Repository
 public class CountryDao extends SimpleTableDao<Country> {
@@ -17,11 +18,19 @@ public class CountryDao extends SimpleTableDao<Country> {
 
     @Override
     protected PreparedStatement createInsertStatement(Connection connection, Country entity) {
-        return null;
+        PreparedStatement ps = null;
+        try {
+            ps = connection.prepareStatement(SQL_INSERT, new String[]{"id"});
+            ps.setString(1, entity.getCountry());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ps;
     }
 
     @Override
     public Country update(Country entity) {
-        return null;
+        jdbcTemplateObject.update(SQL_UPDATE, entity.getCountry(), entity.getId());
+        return entity;
     }
 }
