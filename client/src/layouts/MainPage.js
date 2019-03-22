@@ -13,6 +13,7 @@ import CountryList from '../components/admin/films/data/country/CountryList';
 import GenreList from "../components/admin/films/data/genre/GenreList";
 import ActorList from "../components/admin/films/data/person/ActorList";
 import DirectorList from "../components/admin/films/data/person/DirectorList";
+import AddPerson from "../components/admin/films/data/person/AddPerson";
 
 export default () => (
     <div className='container'>
@@ -29,6 +30,8 @@ export default () => (
             <Route path='/genre_list' component={GenreList}/>
             <Route path='/actor_list' component={ActorList}/>
             <Route path='/director_list' component={DirectorList}/>
+            <Route path='/add_person' component={AddPerson}/>
+
         </Switch>
     </div>
 )
