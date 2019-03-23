@@ -29,7 +29,7 @@ public class Film extends Entity {
 
     private List<Country> countries;
 
-    private Date duration;
+    private int duration;
 
     private Language language;
 
@@ -37,9 +37,9 @@ public class Film extends Entity {
 
     private Date lastSeance;
 
-    private File smallPoster;
+    private String smallPoster;
 
-    private File bigPoster;
+    private String bigPoster;
 
     private String trailerLink;
 

@@ -14,16 +14,23 @@ import GenreList from "../components/admin/films/data/genre/GenreList";
 import ActorList from "../components/admin/films/data/person/ActorList";
 import DirectorList from "../components/admin/films/data/person/DirectorList";
 import AddPerson from "../components/admin/films/data/person/AddPerson";
+import FilmList from "../components/admin/films/FilmList";
+import AddFilm from "../components/admin/films/AddFilm";
 
 export default () => (
     <div className='container'>
         <Switch>
             <Route exact path='/' component={AdminMenu}/>
+
             <Route path='/add_user' component={AddUser}/>
             <Route path='/user_list' component={UserList}/>
             <Route path='/admin_list' component={AdminList}/>
             <Route path='/user_card' component={UserCard}/>
             <Route path='/user_update' component={UpdateUser}/>
+
+            <Route path='/film_list' component={FilmList}/>
+            <Route path='/add_film' component={AddFilm}/>
+
             <Route path='/language_list' component={LanguageList}/>
             <Route path='/studio_list' component={StudioList}/>
             <Route path='/country_list' component={CountryList}/>

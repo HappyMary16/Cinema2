@@ -17,12 +17,12 @@ public class FilmMapper implements RowMapper<Film> {
         entity.setDescription(rs.getString("description"));
         entity.setYear(rs.getInt("year"));
         entity.setMinAge(rs.getInt("min_age"));
-        entity.setDuration(rs.getTime("duration"));
+        entity.setDuration(rs.getInt("duration"));
         entity.setLanguage(new LanguageDao().findById(rs.getLong("film_language_id")));
         entity.setFirstSeance(rs.getDate("first_seance"));
         entity.setLastSeance(rs.getDate("last_seance"));
-        entity.setSmallPoster(new File(rs.getString("small_poster")));
-        entity.setBigPoster(new File(rs.getString("big_poster")));
+        entity.setSmallPoster(rs.getString("small_poster"));
+        entity.setBigPoster(rs.getString("big_poster"));
         entity.setTrailerLink(rs.getString("trailer_link"));
         return entity;
     }

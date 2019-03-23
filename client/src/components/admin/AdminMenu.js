@@ -17,7 +17,7 @@ class AdminMenu extends Component {
                 <ul id="navbar">
                     <li><a href="/user_list">Users</a></li>
                     <li><a href="/admin_list">Admins</a></li>
-                    {/*<li><a href="/admin/films">Films</a></li>*/}
+                    <li><a href="/film_list">Films</a></li>
                     <ul>
                         <li><a href="/language_list">Languages</a></li>
                         <li><a href="/genre_list">Genres</a></li>

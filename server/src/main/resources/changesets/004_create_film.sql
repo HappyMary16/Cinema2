@@ -4,7 +4,7 @@ CREATE TABLE `film` (
 	`description` VARCHAR(250) NOT NULL,
 	`year` INT(11) NOT NULL,
 	`min_age` INT(11) NOT NULL,
-	`duration` TIME NOT NULL,
+	`duration` INT(11) NOT NULL,
 	`film_language_id` INT(11) NOT NULL,
 	`first_seance` DATE NOT NULL,
 	`last_seance` DATE NOT NULL,

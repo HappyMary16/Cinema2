@@ -37,6 +37,7 @@ public class FilmService implements IService<Long, Film> {
     public Film create(Film entity) {
         filmDao.create(entity);
 
+        System.out.println("film entity created");
         genreFilmDataDao.insertDataByFilmId(entity.getGenres(), entity.getId());
         actorFilmDataDao.insertDataByFilmId(entity.getActors(), entity.getId());
         countryFilmDataDao.insertDataByFilmId(entity.getCountries(), entity.getId());
