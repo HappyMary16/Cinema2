@@ -7,3 +7,5 @@ CREATE TABLE `genre` (
 )
 COLLATE='utf8mb4_0900_ai_ci'
 ENGINE=InnoDB;
+
+INSERT INTO genre(genre) VALUES('genre');

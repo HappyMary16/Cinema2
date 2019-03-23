@@ -13,5 +13,7 @@ CREATE TABLE `person` (
     ON UPDATE CASCADE
 )
 COLLATE='utf8mb4_0900_ai_ci'
-ENGINE=InnoDB
-;
+ENGINE=InnoDB;
+
+INSERT INTO person(first_name, last_name, role_id) VALUES('actor', 'actor', 4);
+INSERT INTO person(first_name, last_name, role_id) VALUES('director', 'director', 3);

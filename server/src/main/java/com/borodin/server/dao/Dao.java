@@ -75,4 +75,37 @@ public abstract class Dao<T extends Entity> implements IDao<Long, T> {
             return ps;
         }, mapper);
     }
+
+    @Override
+    public List<T> findAllBy(String[][] columnAndValue) {
+        if (columnAndValue.length == 0 || columnAndValue[0].length == 0) {
+            return null;
+        }
+
+        String SQL = String.format(SQL_SELECT_ALL_BY_COLUMN, columnAndValue[0][0]);
+        StringBuilder sql = new StringBuilder(SQL);
+
+        for (int i = 1; i < columnAndValue.length; i++) {
+            sql.append( "AND ").append(columnAndValue[i][0]).append(" = ?");
+        }
+
+        return jdbcTemplateObject.query(connection -> {
+            PreparedStatement ps = null;
+
+            try {
+                ps = connection.prepareStatement(SQL);
+                for (String[] line :
+                        columnAndValue) {
+                    if (line.length < 2) {
+                        continue;
+                    }
+                    ps.setString(1, line[1]);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            return ps;
+        }, mapper);
+    }
 }

@@ -60,7 +60,7 @@ class AddUser extends Component {
             roleId: this.state.roleId
         };
         const ADD_USER_URL = "http://localhost:8080/users/add";
-        console.log(this.state.roleId);
+
         axios.post(ADD_USER_URL, user)
             .then("1" === this.state.roleId
                 ? this.props.history.push("/admin_list")
