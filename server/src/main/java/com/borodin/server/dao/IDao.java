@@ -17,4 +17,6 @@ public interface IDao <K, V extends Entity>{
     V create(V entity);
     
     List<V> findAllBy(String columnName, String value);
+
+    List<V> findAllBy(String[][] columnAndValue);
 }

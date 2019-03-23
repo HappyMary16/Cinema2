@@ -60,12 +60,12 @@ public class FilmDao extends Dao<Film> {
                         ps.setString(2, entity.getDescription());
                         ps.setLong(3, entity.getYear());
                         ps.setLong(4, entity.getMinAge());
-                        ps.setTime(5, new Time(entity.getDuration().getTime()));
+                        ps.setLong(5, entity.getDuration());
                         ps.setLong(6, entity.getLanguage().getId());
                         ps.setDate(7, new Date(entity.getFirstSeance().getTime()));
                         ps.setDate(8, new Date(entity.getLastSeance().getTime()));
-                        ps.setString(9, entity.getSmallPoster().getPath());
-                        ps.setString(10, entity.getBigPoster().getPath());
+                        ps.setString(9, entity.getSmallPoster());
+                        ps.setString(10, entity.getBigPoster());
                         ps.setString(11, entity.getTrailerLink());
                     } catch (SQLException e) {
                         e.printStackTrace();

@@ -7,3 +7,5 @@ CREATE TABLE `language` (
 )
 COLLATE='utf8mb4_0900_ai_ci'
 ENGINE=InnoDB;
+
+INSERT INTO language(language) VALUES('language');

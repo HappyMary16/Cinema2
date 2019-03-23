@@ -20,7 +20,7 @@ public class FilmDataDao<T extends Entity> implements IFilmDataDao<T> {
 
     private String type;
 
-    public static final String GET_ALL_BY_ID = "SELECT * FROM film_%s INNER JOIN %s ON film_%s = id WHERE film_id = ?";
+    public static final String GET_ALL_BY_ID = "SELECT * FROM film_%s INNER JOIN %s ON %s_id = id WHERE film_id = ?";
     public static final String DELETE_ALL_BY_ID = "DELETE FROM film_%s WHERE film_id = ?";
     public static final String INSERT_ALL_BY_ID = "INSERT INTO film_%s (film_id, %s_id) VALUES (?, ?)";
 
