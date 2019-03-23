@@ -16,6 +16,8 @@ import DirectorList from "../components/admin/films/data/person/DirectorList";
 import AddPerson from "../components/admin/films/data/person/AddPerson";
 import FilmList from "../components/admin/films/FilmList";
 import AddFilm from "../components/admin/films/AddFilm";
+import UpdateFilm from "../components/admin/films/UpdateFilm";
+import FilmCard from "../components/admin/films/FilmCard";
 
 export default () => (
     <div className='container'>
@@ -30,6 +32,8 @@ export default () => (
 
             <Route path='/film_list' component={FilmList}/>
             <Route path='/add_film' component={AddFilm}/>
+            <Route path='/film_update' component={UpdateFilm}/>
+            <Route path='/film_card' component={FilmCard}/>
 
             <Route path='/language_list' component={LanguageList}/>
             <Route path='/studio_list' component={StudioList}/>

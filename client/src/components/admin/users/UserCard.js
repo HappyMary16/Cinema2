@@ -17,7 +17,6 @@ class UserCard extends Component {
 
     componentWillMount() {
         const GET_ALL_URL = "http://localhost:8080/users/" + this.state.id;
-        console.log("id =  " + this.state.id);
         axios.get(GET_ALL_URL)
             .then(response => {
                 this.setState({user: response.data});
@@ -26,7 +25,6 @@ class UserCard extends Component {
 
     componentWillReceiveProps(nextProps) {
         const GET_ALL_URL = "http://localhost:8080/users/" + this.state.id;
-        console.log("id =  " + this.state.id);
         axios.get(GET_ALL_URL)
             .then(response => {
                 this.setState({user: response.data});

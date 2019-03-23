@@ -29,6 +29,12 @@ class AddFilm extends Component {
             studios: [],
             countries: [],
 
+            userGenres: [],
+            userDirectors: [],
+            userActors: [],
+            userStudios: [],
+            userCountries: [],
+
             //all data for selectors
             listStudios: [],
             listCountries: [],
@@ -101,9 +107,10 @@ class AddFilm extends Component {
         const GET_ALL_URL = "http://localhost:8080/genres/" + name;
         axios.get(GET_ALL_URL)
             .then(response => {
-                if (!this.state.genres.includes(response.data.genre)) {
-                    this.state.genres.push(response.data.genre);
-                    document.getElementById('selectGenre').value = this.state.genres;
+                if (!this.state.userGenres.includes(response.data.genre)) {
+                    this.state.genres.push(response.data);
+                    this.state.userGenres.push(response.data.genre);
+                    document.getElementById('selectGenre').value = this.state.userGenres;
                 }
             });
     };
@@ -112,9 +119,10 @@ class AddFilm extends Component {
         const GET_ALL_URL = "http://localhost:8080/persons/" + name;
         axios.get(GET_ALL_URL)
             .then(response => {
-                if (!this.state.directors.includes(response.data.firstName + "  " + response.data.lastName)) {
-                    this.state.directors.push(response.data.firstName + "  " + response.data.lastName);
-                    document.getElementById('selectDirector').value = this.state.directors;
+                if (!this.state.userDirectors.includes(response.data.firstName + "  " + response.data.lastName)) {
+                    this.state.userDirectors.push(response.data.firstName + "  " + response.data.lastName);
+                    this.state.directors.push(response.data);
+                    document.getElementById('selectDirector').value = this.state.userDirectors;
                 }
             });
     };
@@ -123,9 +131,10 @@ class AddFilm extends Component {
         const GET_ALL_URL = "http://localhost:8080/persons/" + name;
         axios.get(GET_ALL_URL)
             .then(response => {
-                if (!this.state.actors.includes(response.data.firstName + "  " + response.data.lastName)) {
-                    this.state.actors.push(response.data.firstName + "  " + response.data.lastName);
-                    document.getElementById('selectActor').value = this.state.actors;
+                if (!this.state.userActors.includes(response.data.firstName + "  " + response.data.lastName)) {
+                    this.state.userActors.push(response.data.firstName + "  " + response.data.lastName);
+                    this.state.actors.push(response.data);
+                    document.getElementById('selectActor').value = this.state.userActors;
                 }
             });
     };
@@ -134,9 +143,10 @@ class AddFilm extends Component {
         const GET_ALL_URL = "http://localhost:8080/studios/" + name;
         axios.get(GET_ALL_URL)
             .then(response => {
-                if (!this.state.actors.includes(response.data.studio)) {
-                    this.state.studios.push(response.data.studio);
-                    document.getElementById('selectStudio').value = this.state.studios;
+                if (!this.state.userStudios.includes(response.data.studio)) {
+                    this.state.userStudios.push(response.data.studio);
+                    this.state.studios.push(response.data);
+                    document.getElementById('selectStudio').value = this.state.userStudios;
                 }
             });
     };
@@ -145,9 +155,10 @@ class AddFilm extends Component {
         const GET_ALL_URL = "http://localhost:8080/countries/" + name;
         axios.get(GET_ALL_URL)
             .then(response => {
-                if (!this.state.actors.includes(response.data.country)) {
-                    this.state.countries.push(response.data.country);
-                    document.getElementById('selectCountry').value = this.state.countries;
+                if (!this.state.userCountries.includes(response.data.country)) {
+                    this.state.userCountries.push(response.data.country);
+                    this.state.countries.push(response.data);
+                    document.getElementById('selectCountry').value = this.state.userCountries;
                 }
             });
     };
@@ -187,60 +198,15 @@ class AddFilm extends Component {
 
     addFilmHandler = () => {
 
-        let filmGenres = [];
-        this.state.genres.map(function (d) {
-            const GET_GENRE_URL = "http://localhost:8080/genres/by_name/" + d;
-            axios.get(GET_GENRE_URL)
-                .then(response => {
-                    filmGenres.push(response.data);
-                });
-        });
-
-        let filmStudios = [];
-        this.state.studios.map(function (d) {
-            const GET_STUDIO_URL = "http://localhost:8080/studios/by_name/" + d;
-            axios.get(GET_STUDIO_URL)
-                .then(response => {
-                    filmGenres.push(response.data);
-                });
-        });
-
-        let filmCountries = [];
-        this.state.countries.map(function (d) {
-            const GET_COUNTRY_URL = "http://localhost:8080/countries/by_name/" + d;
-            axios.get(GET_COUNTRY_URL)
-                .then(response => {
-                    filmGenres.push(response.data);
-                });
-        });
-
-        let filmActors = [];
-        this.state.actors.map(function (d) {
-            const GET_PERSON_URL = "http://localhost:8080/persons/by_name/" + d;
-            axios.get(GET_PERSON_URL)
-                .then(response => {
-                    filmGenres.push(response.data);
-                });
-        });
-
-        let filmDirectors = [];
-        this.state.directors.map(function (d) {
-            const GET_PERSON_URL = "http://localhost:8080/persons/by_name/" + d;
-            axios.get(GET_PERSON_URL)
-                .then(response => {
-                    filmGenres.push(response.data);
-                });
-        });
-
         let film = {
             title: this.state.title,
             description: this.state.description,
             minAge: this.state.minAge,
-            genres: filmGenres,
-            directors: filmDirectors,
-            actors: filmActors,
-            studios: filmStudios,
-            countries: filmCountries,
+            genres: this.state.genres,
+            directors: this.state.directors,
+            actors: this.state.actors,
+            studios: this.state.studios,
+            countries: this.state.countries,
             duration: this.state.duration,
             language: this.state.language,
             firstSeance: this.state.firstSeance,
@@ -252,7 +218,6 @@ class AddFilm extends Component {
 
         };
         const ADD_FILM_URL = "http://localhost:8080/films/add";
-        console.log("url");
         axios.post(ADD_FILM_URL, film)
             .then(
                 this.props.history.push("/film_list")
@@ -290,7 +255,7 @@ class AddFilm extends Component {
                             })}</select></p>
 
                     <p><label>Genres:</label>
-                        <input type="text" id="selectGenre" value={this.state.genres}/>
+                        <input type="text" id="selectGenre" value={this.state.userGenres}/>
                         <select onChange={e => this.genresChangeHandler(e.target.value)}>
                             <option value="0">Choose genre</option>
                             {this.state.listGenres.map(function (d) {
@@ -300,7 +265,7 @@ class AddFilm extends Component {
                             })}</select></p>
 
                     <p><label>Studios:</label>
-                        <input type="text" id="selectStudio" value={this.state.studios}/>
+                        <input type="text" id="selectStudio" value={this.state.userStudios}/>
                         <select onChange={e => this.studiosChangeHandler(e.target.value)}>
                             <option value="0">Choose studio</option>
                             {this.state.listStudios.map(function (d) {
@@ -310,7 +275,7 @@ class AddFilm extends Component {
                             })}</select></p>
 
                     <p><label>Countries:</label>
-                        <input type="text" id="selectCountry" value={this.state.countries}/>
+                        <input type="text" id="selectCountry" value={this.state.userCountries}/>
                         <select onChange={e => this.countriesChangeHandler(e.target.value)}>
                             <option value="0">Choose countries</option>
                             {this.state.listCountries.map(function (d) {
@@ -320,7 +285,7 @@ class AddFilm extends Component {
                             })}</select></p>
 
                     <p><label>Directors:</label>
-                        <input type="text" id="selectDirector" value={this.state.directors}/>
+                        <input type="text" id="selectDirector" value={this.state.userDirectors}/>
                         <select onChange={e => this.directorsChangeHandler(e.target.value)}>
                             <option value="0">Choose director</option>
                             {this.state.listDirectors.map(function (d) {
@@ -330,7 +295,7 @@ class AddFilm extends Component {
                             })}</select></p>
 
                     <p><label>Actors:</label>
-                        <input type="text" id="selectActor" value={this.state.actors}/>
+                        <input type="text" id="selectActor" value={this.state.userActors}/>
                         <select onChange={e => this.actorsChangeHandler(e.target.value)}>
                             <option value="0">Choose actor</option>
                             {this.state.listActors.map(function (d) {
