@@ -13,7 +13,7 @@ public class Seance extends Entity {
 
     private Film film;
 
-    private Date dateAdnTime;
+    private Date dateAndTime;
 
     private Hall hall;
 
