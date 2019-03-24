@@ -17,32 +17,19 @@ public class HallService implements IService<Long, Hall> {
 
     @Override
     public List<Hall> getAll() {
-        return null;
+        List<Hall> halls = hallDao.getAll();
+        for (Hall entity :
+                halls) {
+            setPlacementAndPlaces(entity);
+        }
+        return halls;
     }
 
     @Override
     public Hall findById(Long id) {
-        Hall entity = hallDao.findById(id);
-        boolean[][] placement = new boolean[entity.getHeight()][entity.getWidth()];
-
-        for (Integer[] place :
-                placementDao.getAll(entity.getId())) {
-            placement[place[0]][place[1]] = true;
-        }
-
-        entity.setPlacement(placement);
-        List<Place> places = new LinkedList<>();
-
-        for (int i = 0, numPlace = 1; i < placement.length; i++) {
-            for (int j = 0; j < placement[i].length; j++) {
-                if (placement[i][j]) {
-                    places.add(new Place(i, numPlace++));
-                }
-            }
-        }
-
-        entity.setPlaces(places);
-        return null;
+        Hall hall = hallDao.findById(id);
+        setPlacementAndPlaces(hall);
+        return hall;
     }
 
     @Override
@@ -83,6 +70,28 @@ public class HallService implements IService<Long, Hall> {
         }
 
         placementDao.insertAll(places, entity.getId());
-        return null;
+        return entity;
     }
+
+    private void setPlacementAndPlaces(Hall entity) {
+        boolean[][] placement = new boolean[entity.getHeight()][entity.getWidth()];
+
+        for (Integer[] place :
+                placementDao.getAll(entity.getId())) {
+            placement[place[0]][place[1]] = true;
+        }
+
+        entity.setPlacement(placement);
+        List<Place> places = new LinkedList<>();
+
+        for (int i = 0, numPlace = 1; i < placement.length; i++) {
+            for (int j = 0; j < placement[i].length; j++) {
+                if (placement[i][j]) {
+                    places.add(new Place(i, numPlace++));
+                }
+            }
+        }
+        entity.setPlaces(places);
+    }
+
 }

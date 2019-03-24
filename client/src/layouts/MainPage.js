@@ -18,6 +18,10 @@ import FilmList from "../components/admin/films/FilmList";
 import AddFilm from "../components/admin/films/AddFilm";
 import UpdateFilm from "../components/admin/films/UpdateFilm";
 import FilmCard from "../components/admin/films/FilmCard";
+import HallList from "../components/admin/halls/HallList";
+import AddHall from "../components/admin/halls/AddHall";
+import UpdateHall from "../components/admin/halls/UpdateHall";
+import HallCard from "../components/admin/halls/HallCard";
 
 export default () => (
     <div className='container'>
@@ -42,6 +46,11 @@ export default () => (
             <Route path='/actor_list' component={ActorList}/>
             <Route path='/director_list' component={DirectorList}/>
             <Route path='/add_person' component={AddPerson}/>
+
+            <Route path='/hall_list' component={HallList}/>
+            <Route path='/add_hall' component={AddHall}/>
+            <Route path='/hall_update' component={UpdateHall}/>
+            <Route path='/hall_card' component={HallCard}/>
 
         </Switch>
     </div>

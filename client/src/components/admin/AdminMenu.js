@@ -26,7 +26,7 @@ class AdminMenu extends Component {
                         <li><a href="/actor_list">Actors</a></li>
                         <li><a href="/director_list">Directors</a></li>
                     </ul>
-                    {/*<li><a href="/admin/halls">Halls</a></li>*/}
+                    <li><a href="/hall_list">Halls</a></li>
                     {/*<li><a href="/admin/seances">Seances</a></li>*/}
                     {/*<li><a href="/">To cinema</a></li>*/}
                 </ul>
