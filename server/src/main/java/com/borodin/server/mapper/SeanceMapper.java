@@ -14,7 +14,7 @@ public class SeanceMapper implements RowMapper<Seance> {
         Seance entity = new Seance();
         entity.setId(rs.getLong("id"));
         entity.setPriceTicket(rs.getInt("price"));
-        entity.setDateAdnTime(rs.getDate("date_and_time"));
+        entity.setDateAndTime(rs.getDate("date_and_time"));
         entity.setFilm(new FilmDao().findById(rs.getLong("film_id")));
         entity.setHall(new HallDao().findById(rs.getLong("hall_id")));
         return entity;

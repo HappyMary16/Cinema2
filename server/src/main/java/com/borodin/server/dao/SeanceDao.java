@@ -28,7 +28,7 @@ public class SeanceDao extends Dao<Seance> {
                 entity.getFilm().getId(),
                 entity.getHall().getId(),
                 entity.getPriceTicket(),
-                entity.getDateAdnTime(),
+                entity.getDateAndTime(),
                 entity.getId());
 
         return entity;
@@ -49,7 +49,7 @@ public class SeanceDao extends Dao<Seance> {
                         ps.setLong(1, entity.getFilm().getId());
                         ps.setLong(2, entity.getHall().getId());
                         ps.setLong(3, entity.getPriceTicket());
-                        ps.setDate(4, new Date(entity.getDateAdnTime().getTime()));
+                        ps.setDate(4, new Date(entity.getDateAndTime().getTime()));
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
