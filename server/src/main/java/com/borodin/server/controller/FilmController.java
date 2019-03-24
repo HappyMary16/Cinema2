@@ -20,6 +20,7 @@ public class FilmController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Film saveFilm(@RequestBody Film film) {
+        System.out.println("add");
         return filmService.create(film);
     }
 

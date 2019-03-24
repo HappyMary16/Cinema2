@@ -27,4 +27,14 @@ public class GenreController {
     public List<Genre> getAll() {
         return genreDao.getAll();
     }
+
+    @RequestMapping(value = "/by_name/{name}", method = RequestMethod.GET)
+    public Genre getByName(@PathVariable(value = "name") String name) {
+        List<Genre> genres = genreDao.findAllBy("genre", name);
+        if (genres.isEmpty()) {
+            return null;
+        } else {
+            return genres.get(0);
+        }
+    }
 }
