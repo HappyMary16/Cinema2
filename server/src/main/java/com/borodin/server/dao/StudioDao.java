@@ -2,6 +2,7 @@ package com.borodin.server.dao;
 
 import com.borodin.server.domain.Studio;
 import com.borodin.server.mapper.StudioMapper;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -10,10 +11,6 @@ import java.sql.SQLException;
 
 @Repository
 public class StudioDao extends SimpleTableDao<Studio> {
-
-    public StudioDao() {
-        super(Studio.class, new StudioMapper());
-    }
 
     @Override
     protected PreparedStatement createInsertStatement(Connection connection, Studio entity) {
@@ -31,5 +28,15 @@ public class StudioDao extends SimpleTableDao<Studio> {
     public Studio update(Studio entity) {
         jdbcTemplateObject.update(SQL_UPDATE, entity.getStudio(), entity.getId());
         return entity;
+    }
+
+    @Override
+    protected Studio getClassObject() {
+        return new Studio();
+    }
+
+    @Override
+    protected RowMapper<Studio> getRowMapper() {
+        return new StudioMapper();
     }
 }

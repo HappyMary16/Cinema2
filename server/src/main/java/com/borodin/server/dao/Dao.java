@@ -1,16 +1,19 @@
 package com.borodin.server.dao;
 
 import com.borodin.server.domain.Entity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+@Repository
 public abstract class Dao<T extends Entity> implements IDao<Long, T> {
 
     private static ApplicationContext context = new ClassPathXmlApplicationContext("DataSourceBean.xml");
@@ -20,47 +23,41 @@ public abstract class Dao<T extends Entity> implements IDao<Long, T> {
 
     protected static JdbcTemplate jdbcTemplateObject = new JdbcTemplate(dataSource);
 
-    protected String tableName;
+    private final String SQL_DELETE_BY_ID = "DELETE FROM %s WHERE id = ?";
 
-    private RowMapper<T> mapper;
+    protected final String SQL_SELECT_ALL = "SELECT * FROM %s";
 
-    private final String SQL_DELETE_BY_ID;
+    protected final String SQL_SELECT_BY_ID = "SELECT * FROM %s WHERE id = ?";
 
-    protected final String SQL_SELECT_ALL;
-
-    protected final String SQL_SELECT_BY_ID;
-
-    protected final String SQL_SELECT_ALL_BY_COLUMN;
-
-    protected Dao(Class className, RowMapper<T> mapper) {
-        this.mapper = mapper;
-        tableName = className.getSimpleName();
-        SQL_SELECT_ALL = String.format("SELECT * FROM %s", tableName);
-        SQL_SELECT_BY_ID = String.format("SELECT * FROM %s WHERE id = ?", tableName);
-        SQL_DELETE_BY_ID = String.format("DELETE FROM %s WHERE id = ?", tableName);
-        SQL_SELECT_ALL_BY_COLUMN = String.format("SELECT * FROM %s WHERE %s = ?", tableName, "%s");
-    }
+    protected final String SQL_SELECT_ALL_BY_COLUMN = "SELECT * FROM %s WHERE %s = ?";
 
     @Override
     public List<T> getAll() {
-        return jdbcTemplateObject.query(SQL_SELECT_ALL, mapper);
+        return jdbcTemplateObject.query(
+                String.format(SQL_SELECT_ALL, getClassObject().getClass().getSimpleName()),
+                getRowMapper());
     }
 
     @Override
     public T findById(Long id) {
-        return jdbcTemplateObject.queryForObject(SQL_SELECT_BY_ID, new Object[]{id}, mapper);
+        return jdbcTemplateObject.queryForObject(
+                String.format(SQL_SELECT_BY_ID, getClassObject().getClass().getSimpleName()), new Object[]{id},
+                getRowMapper());
     }
 
     @Override
     public void deleteById(Long id) {
-        String sql = String.format(SQL_DELETE_BY_ID, tableName);
-        jdbcTemplateObject.update(sql, id);
+        jdbcTemplateObject.update(
+                String.format(SQL_DELETE_BY_ID,
+                        getClassObject().getClass().getSimpleName()), id);
     }
 
 
     @Override
     public List<T> findAllBy(String columnName, String value) {
-        String SQL = String.format(SQL_SELECT_ALL_BY_COLUMN, columnName);
+        String SQL = String.format(
+                String.format(SQL_SELECT_ALL_BY_COLUMN, getClassObject().getClass().getSimpleName(), "%s"),
+                columnName);
 
         return jdbcTemplateObject.query(connection -> {
             PreparedStatement ps = null;
@@ -73,7 +70,7 @@ public abstract class Dao<T extends Entity> implements IDao<Long, T> {
             }
 
             return ps;
-        }, mapper);
+        }, getRowMapper());
     }
 
     @Override
@@ -82,7 +79,9 @@ public abstract class Dao<T extends Entity> implements IDao<Long, T> {
             return null;
         }
 
-        String SQL = String.format(SQL_SELECT_ALL_BY_COLUMN, columnAndValue[0][0]);
+        String SQL = String.format(
+                String.format(SQL_SELECT_ALL_BY_COLUMN, getClassObject().getClass().getSimpleName(), "%s"),
+                columnAndValue[0][0]);
         StringBuilder sql = new StringBuilder(SQL);
 
         for (int i = 1; i < columnAndValue.length; i++) {
@@ -106,6 +105,10 @@ public abstract class Dao<T extends Entity> implements IDao<Long, T> {
             }
 
             return ps;
-        }, mapper);
+        }, getRowMapper());
     }
+
+    protected abstract T getClassObject();
+
+    protected abstract RowMapper<T> getRowMapper();
 }

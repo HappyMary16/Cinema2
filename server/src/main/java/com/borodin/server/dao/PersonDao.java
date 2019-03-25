@@ -2,6 +2,7 @@ package com.borodin.server.dao;
 
 import com.borodin.server.domain.Person;
 import com.borodin.server.mapper.PersonMapper;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -12,10 +13,6 @@ import java.util.List;
 
 @Repository
 public class PersonDao extends Dao<Person>{
-
-    public PersonDao() {
-        super(Person.class, new PersonMapper());
-    }
 
     @Override
     public Person update(Person entity) {
@@ -58,5 +55,15 @@ public class PersonDao extends Dao<Person>{
         entity.setId(keyHolder.getKey().longValue());
 
         return entity;
+    }
+
+    @Override
+    protected Person getClassObject() {
+        return new Person();
+    }
+
+    @Override
+    protected RowMapper<Person> getRowMapper() {
+        return new PersonMapper();
     }
 }
