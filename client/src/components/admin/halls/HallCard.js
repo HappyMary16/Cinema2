@@ -10,8 +10,12 @@ class HallCard extends Component {
         super(props);
 
         this.state = {
-            hall: {},
-            placement: [],
+            hall: {
+                name: '',
+                width: '',
+                height: '',
+                placement: []
+            },
             id: new URLSearchParams(this.props.location.search).get("id")
         }
     }
@@ -21,9 +25,7 @@ class HallCard extends Component {
         axios.get(GET_ALL_URL)
             .then(response => {
                 this.setState({hall: response.data});
-                this.setState({placement: response.data.placement})
             });
-        console.log(this.state.placement);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -35,19 +37,57 @@ class HallCard extends Component {
     }
 
     createHallPlacement() {
-        let table = [];
-        for (let i = 0; i < this.state.hall.height; i++) {
-            let children = [];
-            for (let j = 0; j < this.state.hall.width; j++) {
-                if (this.state.placement[i][j]) {
-                    children.push(<td><input type="button"/></td>)
-                } else {
-                    children.push(<td><p></p></td>)
-                }
-            }
-            table.push(<tr>{children}</tr>)
+        let row = [];
+        debugger;
+
+        const arr = [
+            {
+                name: 'Anton',
+                isStudent: false
+            },
+            {
+                name: 'Maria',
+                isStudent: true
+            },
+        ];
+
+        {/*<table>*/
         }
-        return table;
+        {/*{*/
+        }
+        {/*arr.map((item) => (*/
+        }
+        {/*<tr>*/
+        }
+        {/*item.map*/
+        }
+        {/*</tr>*/
+        }
+        {/*))*/
+        }
+        {/*}*/
+        }
+        {/*</table>*/
+        }
+        return (
+            <table>
+                {/*{*/}
+                    {/*this.state.hall.placement.map((item) => (*/}
+                    {/*item.map((isPlace) => ())*/}
+
+                    {/*))*/}
+                {/*}*/}
+                {/*item.map((isPlace) => (*/}
+                {/*if (isPlace) {*/}
+                {/*<td><input type='button'/></td>*/}
+            {/*} else {*/}
+                {/*<td><p></p></td>*/}
+            {/*}*/}
+                {/*))*/}
+
+
+            </table>
+        )
     }
 
     render() {
@@ -67,9 +107,8 @@ class HallCard extends Component {
                     {/*<input type="text" name="numberPlaces" id="numberPlaces"*/}
                     {/*value={this.state.hall.places.length} readOnly/></p>*/}
 
-                    <table>
-                        {this.createHallPlacement()}
-                    </table>
+                    {this.createHallPlacement()}
+
                     <p>
                         <a href={"/add_placement?id=" + this.state.id}>Add placement</a>
                     </p>
