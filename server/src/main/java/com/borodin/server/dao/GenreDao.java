@@ -2,6 +2,7 @@ package com.borodin.server.dao;
 
 import com.borodin.server.domain.Genre;
 import com.borodin.server.mapper.GenreMapper;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -10,10 +11,6 @@ import java.sql.SQLException;
 
 @Repository
 public class GenreDao extends SimpleTableDao<Genre> {
-
-    public GenreDao() {
-        super(Genre.class, new GenreMapper());
-    }
 
     @Override
     protected PreparedStatement createInsertStatement(Connection connection, Genre entity) {
@@ -31,5 +28,15 @@ public class GenreDao extends SimpleTableDao<Genre> {
     public Genre update(Genre entity) {
         jdbcTemplateObject.update(SQL_UPDATE, entity.getGenre(), entity.getId());
         return entity;
+    }
+
+    @Override
+    protected Genre getClassObject() {
+        return new Genre();
+    }
+
+    @Override
+    protected RowMapper<Genre> getRowMapper() {
+        return new GenreMapper();
     }
 }

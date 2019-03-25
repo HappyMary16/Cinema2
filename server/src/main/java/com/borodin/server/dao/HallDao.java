@@ -2,6 +2,7 @@ package com.borodin.server.dao;
 
 import com.borodin.server.domain.Hall;
 import com.borodin.server.mapper.HallMapper;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -11,10 +12,6 @@ import java.sql.SQLException;
 
 @Repository
 public class HallDao extends Dao<Hall> {
-
-    public HallDao() {
-        super(Hall.class, new HallMapper());
-    }
 
     @Override
     public Hall update(Hall entity) {
@@ -57,5 +54,15 @@ public class HallDao extends Dao<Hall> {
         entity.setId(keyHolder.getKey().longValue());
 
         return entity;
+    }
+
+    @Override
+    protected Hall getClassObject() {
+        return new Hall();
+    }
+
+    @Override
+    protected RowMapper<Hall> getRowMapper() {
+        return new HallMapper();
     }
 }

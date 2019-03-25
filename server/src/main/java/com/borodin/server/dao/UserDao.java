@@ -2,6 +2,7 @@ package com.borodin.server.dao;
 
 import com.borodin.server.domain.User;
 import com.borodin.server.mapper.UserMapper;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -11,10 +12,6 @@ import java.sql.SQLException;
 
 @Repository
 public class UserDao extends Dao<User> {
-
-    public UserDao() {
-        super(User.class, new UserMapper());
-    }
 
     @Override
     public User update(User entity) {
@@ -67,4 +64,13 @@ public class UserDao extends Dao<User> {
         return entity;
     }
 
+    @Override
+    protected User getClassObject() {
+        return new User();
+    }
+
+    @Override
+    protected RowMapper<User> getRowMapper() {
+        return new UserMapper();
+    }
 }

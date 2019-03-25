@@ -2,6 +2,7 @@ package com.borodin.server.dao;
 
 import com.borodin.server.domain.Seance;
 import com.borodin.server.mapper.SeanceMapper;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -12,10 +13,6 @@ import java.sql.SQLException;
 
 @Repository
 public class SeanceDao extends Dao<Seance> {
-
-    public SeanceDao() {
-        super(Seance.class, new SeanceMapper());
-    }
 
     @Override
     public Seance update(Seance entity) {
@@ -60,5 +57,15 @@ public class SeanceDao extends Dao<Seance> {
         entity.setId(keyHolder.getKey().longValue());
 
         return entity;
+    }
+
+    @Override
+    protected Seance getClassObject() {
+        return new Seance();
+    }
+
+    @Override
+    protected RowMapper<Seance> getRowMapper() {
+        return new SeanceMapper();
     }
 }

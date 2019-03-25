@@ -13,10 +13,15 @@ public abstract class SimpleTableDao<T extends Entity> extends Dao<T> {
     protected final String SQL_UPDATE;
     protected final String SQL_INSERT;
 
-    public SimpleTableDao(Class className, RowMapper<T> mapper) {
-        super(className, mapper);
-        SQL_UPDATE = "UPDATE " + tableName + " SET " + tableName + " = ? WHERE id = ?";
-        SQL_INSERT = "INSERT INTO " + tableName + " (" + tableName + ") VALUES (?)";
+    public SimpleTableDao() {
+        SQL_UPDATE = "UPDATE " +
+                getClassObject().getClass().getSimpleName().toLowerCase() +
+                " SET " +
+                getClassObject().getClass().getSimpleName().toLowerCase() +
+                " = ? WHERE id = ?";
+        SQL_INSERT = "INSERT INTO " +
+                getClassObject().getClass().getSimpleName().toLowerCase() + " (" +
+                getClassObject().getClass().getSimpleName().toLowerCase() + ") VALUES (?)";
     }
 
     @Override

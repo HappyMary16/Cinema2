@@ -2,6 +2,7 @@ package com.borodin.server.dao;
 
 import com.borodin.server.domain.Film;
 import com.borodin.server.mapper.FilmMapper;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -13,10 +14,6 @@ import java.sql.Time;
 
 @Repository
 public class FilmDao extends Dao<Film> {
-
-    public FilmDao() {
-        super(Film.class, new FilmMapper());
-    }
 
     @Override
     public Film update(Film entity) {
@@ -77,5 +74,15 @@ public class FilmDao extends Dao<Film> {
         entity.setId(keyHolder.getKey().longValue());
 
         return entity;
+    }
+
+    @Override
+    protected Film getClassObject() {
+        return new Film();
+    }
+
+    @Override
+    protected RowMapper<Film> getRowMapper() {
+        return new FilmMapper();
     }
 }
