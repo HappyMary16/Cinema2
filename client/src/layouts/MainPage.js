@@ -25,6 +25,7 @@ import HallCard from "../components/admin/halls/HallCard";
 import SeanceLIst from "../components/admin/seances/SeanceLIst";
 import AddSeance from "../components/admin/seances/AddSeance";
 import SeanceCard from "../components/admin/seances/SeanceCard";
+import UpdateSeance from "../components/admin/seances/UpdateSeance";
 
 export default () => (
     <div className='container'>
@@ -57,7 +58,7 @@ export default () => (
 
             <Route path='/seance_list' component={SeanceLIst}/>
             <Route path='/add_seance' component={AddSeance}/>
-            <Route path='/seance_update' component={UpdateHall}/>
+            <Route path='/seance_update' component={UpdateSeance}/>
             <Route path='/seance_card' component={SeanceCard}/>
         </Switch>
     </div>

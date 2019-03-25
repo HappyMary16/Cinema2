@@ -22,7 +22,6 @@ public class SeanceController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Seance saveSeance(@RequestBody Seance seance) {
         boolean check = true;
-
         for (Seance s :
                 seanceDao.findAllBy("hall_id", String.valueOf(seance.getHall().getId()))) {
             long dateEnd = seance.getDateAndTime().getTime() + (seance.getFilm().getDuration() + 10) * 60 * 1000;

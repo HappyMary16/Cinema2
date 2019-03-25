@@ -40,9 +40,9 @@ class AddSeance extends Component {
             }), () => {
 
             });
+
             this.setState({dateAndTime: name});
         }
-        console.log(this.state.dateAndTime);
     };
 
     timeChangeHandler = (name) => {
@@ -53,9 +53,9 @@ class AddSeance extends Component {
             }), () => {
 
             });
+
             this.setState({dateAndTime: name});
         }
-        console.log(this.state.dateAndTime);
     };
 
     hallChangeHandler = (name) => {
@@ -98,8 +98,6 @@ class AddSeance extends Component {
     }
 
     addSeanceHandler = () => {
-        debugger;
-
         let seance = {
             film: this.state.film,
             dateAndTime: this.state.dateAndTime,
