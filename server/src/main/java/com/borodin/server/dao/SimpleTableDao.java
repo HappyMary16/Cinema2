@@ -10,19 +10,29 @@ import java.sql.PreparedStatement;
 
 public abstract class SimpleTableDao<T extends Entity> extends Dao<T> {
 
-    protected final String SQL_UPDATE;
-    protected final String SQL_INSERT;
+    protected String SQL_UPDATE;
+    protected String SQL_INSERT;
 
     public SimpleTableDao() {
+        initialize();
+    }
+
+    public SimpleTableDao(T object) {
+        super(object);
+        initialize();
+    }
+
+    private void initialize() {
         SQL_UPDATE = "UPDATE " +
-                getClassObject().getClass().getSimpleName().toLowerCase() +
+                super.getObject().getClass().getSimpleName().toLowerCase() +
                 " SET " +
-                getClassObject().getClass().getSimpleName().toLowerCase() +
+                super.getObject().getClass().getSimpleName().toLowerCase() +
                 " = ? WHERE id = ?";
         SQL_INSERT = "INSERT INTO " +
-                getClassObject().getClass().getSimpleName().toLowerCase() + " (" +
-                getClassObject().getClass().getSimpleName().toLowerCase() + ") VALUES (?)";
+                super.getObject().getClass().getSimpleName().toLowerCase() + " (" +
+                super.getObject().getClass().getSimpleName().toLowerCase() + ") VALUES (?)";
     }
+
 
     @Override
     public T create(T entity) {

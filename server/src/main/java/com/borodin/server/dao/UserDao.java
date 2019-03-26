@@ -65,11 +65,6 @@ public class UserDao extends Dao<User> {
     }
 
     @Override
-    protected User getClassObject() {
-        return new User();
-    }
-
-    @Override
     protected RowMapper<User> getRowMapper() {
         return new UserMapper();
     }

@@ -12,6 +12,10 @@ import java.sql.SQLException;
 @Repository
 public class CountryDao extends SimpleTableDao<Country> {
 
+    public CountryDao() {
+        super(new Country());
+    }
+
     @Override
     protected PreparedStatement createInsertStatement(Connection connection, Country entity) {
         PreparedStatement ps = null;
@@ -28,11 +32,6 @@ public class CountryDao extends SimpleTableDao<Country> {
     public Country update(Country entity) {
         jdbcTemplateObject.update(SQL_UPDATE, entity.getCountry(), entity.getId());
         return entity;
-    }
-
-    @Override
-    protected Country getClassObject() {
-        return new Country();
     }
 
     @Override

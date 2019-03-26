@@ -15,6 +15,10 @@ import java.sql.Time;
 @Repository
 public class FilmDao extends Dao<Film> {
 
+    public FilmDao() {
+        super(new Film());
+    }
+
     @Override
     public Film update(Film entity) {
         String SQL = "UPDATE film " +
@@ -74,11 +78,6 @@ public class FilmDao extends Dao<Film> {
         entity.setId(keyHolder.getKey().longValue());
 
         return entity;
-    }
-
-    @Override
-    protected Film getClassObject() {
-        return new Film();
     }
 
     @Override

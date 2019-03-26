@@ -7,10 +7,15 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Repository
 public class LanguageDao extends SimpleTableDao<Language> {
+
+    public LanguageDao() {
+        super(new Language());
+    }
 
     @Override
     protected PreparedStatement createInsertStatement(Connection connection, Language entity) {
@@ -28,11 +33,6 @@ public class LanguageDao extends SimpleTableDao<Language> {
     public Language update(Language entity) {
         jdbcTemplateObject.update(SQL_UPDATE, entity.getLanguage(), entity.getId());
         return entity;
-    }
-
-    @Override
-    protected Language getClassObject() {
-        return new Language();
     }
 
     @Override

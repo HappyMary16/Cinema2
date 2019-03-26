@@ -11,6 +11,9 @@ import java.sql.SQLException;
 
 @Repository
 public class StudioDao extends SimpleTableDao<Studio> {
+    public StudioDao() {
+        super(new Studio());
+    }
 
     @Override
     protected PreparedStatement createInsertStatement(Connection connection, Studio entity) {
@@ -28,11 +31,6 @@ public class StudioDao extends SimpleTableDao<Studio> {
     public Studio update(Studio entity) {
         jdbcTemplateObject.update(SQL_UPDATE, entity.getStudio(), entity.getId());
         return entity;
-    }
-
-    @Override
-    protected Studio getClassObject() {
-        return new Studio();
     }
 
     @Override

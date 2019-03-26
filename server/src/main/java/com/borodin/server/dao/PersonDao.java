@@ -1,5 +1,6 @@
 package com.borodin.server.dao;
 
+import com.borodin.server.domain.Language;
 import com.borodin.server.domain.Person;
 import com.borodin.server.mapper.PersonMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -8,11 +9,31 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 @Repository
 public class PersonDao extends Dao<Person>{
+
+    private static PersonDao personDao;
+    private RowMapper<Person> mapper;
+
+    public PersonDao() {
+        super(new Person());
+        if (personDao == null) {
+            personDao = this;
+
+            mapper = new PersonMapper();
+        }
+    }
+
+    public static synchronized PersonDao getInstance() {
+        if (personDao == null) {
+            personDao = new PersonDao();
+        }
+
+        return personDao;
+    }
 
     @Override
     public Person update(Person entity) {
@@ -58,12 +79,7 @@ public class PersonDao extends Dao<Person>{
     }
 
     @Override
-    protected Person getClassObject() {
-        return new Person();
-    }
-
-    @Override
     protected RowMapper<Person> getRowMapper() {
-        return new PersonMapper();
+        return mapper;
     }
 }
