@@ -1,6 +1,7 @@
 package com.borodin.server.dao;
 
 import com.borodin.server.mapper.PlacementMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,12 +14,8 @@ import java.util.List;
 
 @Repository
 public class PlacementDao implements IPlacementDao {
-
-    private static ApplicationContext context = new ClassPathXmlApplicationContext("DataSourceBean.xml");
-
-    private static DataSource dataSource = (DataSource) context.getBean("dataSource");
-
-    private static JdbcTemplate jdbcTemplateObject = new JdbcTemplate(dataSource);
+    @Autowired
+    private JdbcTemplate jdbcTemplateObject;
 
     private static final String SELECT_ALL_BY_HALL_ID = "SELECT * FROM placement WHERE hall_id = ?";
 

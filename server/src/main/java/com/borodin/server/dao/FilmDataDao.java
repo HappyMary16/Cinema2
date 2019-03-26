@@ -1,6 +1,7 @@
 package com.borodin.server.dao;
 
 import com.borodin.server.domain.Entity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,11 +13,8 @@ import java.util.List;
 
 public class FilmDataDao<T extends Entity> implements IFilmDataDao<T> {
 
-    private static ApplicationContext context = new ClassPathXmlApplicationContext("DataSourceBean.xml");
-
-    protected static DataSource dataSource = (DataSource) context.getBean("dataSource");
-
-    protected static JdbcTemplate jdbcTemplateObject = new JdbcTemplate(dataSource);
+    @Autowired
+    protected JdbcTemplate jdbcTemplateObject;
 
     private String type;
 

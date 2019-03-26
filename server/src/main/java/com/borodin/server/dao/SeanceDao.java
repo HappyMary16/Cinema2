@@ -60,11 +60,6 @@ public class SeanceDao extends Dao<Seance> {
     }
 
     @Override
-    protected Seance getClassObject() {
-        return new Seance();
-    }
-
-    @Override
     protected RowMapper<Seance> getRowMapper() {
         return new SeanceMapper();
     }

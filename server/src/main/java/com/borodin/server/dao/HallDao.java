@@ -57,11 +57,6 @@ public class HallDao extends Dao<Hall> {
     }
 
     @Override
-    protected Hall getClassObject() {
-        return new Hall();
-    }
-
-    @Override
     protected RowMapper<Hall> getRowMapper() {
         return new HallMapper();
     }
