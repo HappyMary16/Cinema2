@@ -11,9 +11,6 @@ import java.sql.SQLException;
 
 @Repository
 public class StudioDao extends SimpleTableDao<Studio> {
-    public StudioDao() {
-        super(new Studio());
-    }
 
     @Override
     protected PreparedStatement createInsertStatement(Connection connection, Studio entity) {
@@ -35,6 +32,11 @@ public class StudioDao extends SimpleTableDao<Studio> {
 
     @Override
     protected RowMapper<Studio> getRowMapper() {
-        return new StudioMapper();
+        return StudioMapper.getStudioMapper();
+    }
+
+    @Override
+    protected String getTypeName() {
+        return "genre";
     }
 }

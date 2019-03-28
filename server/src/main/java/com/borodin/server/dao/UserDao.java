@@ -1,7 +1,6 @@
 package com.borodin.server.dao;
 
 import com.borodin.server.domain.User;
-import com.borodin.server.mapper.UserMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -66,6 +65,22 @@ public class UserDao extends Dao<User> {
 
     @Override
     protected RowMapper<User> getRowMapper() {
-        return new UserMapper();
+        return (rs, i) -> {
+                User entity = new User();
+                entity.setId(rs.getLong("id"));
+                entity.setFirstName(rs.getString("first_name"));
+                entity.setLastName(rs.getString("last_name"));
+                entity.setLogin(rs.getString("login"));
+                entity.setPassword(rs.getString("password"));
+                entity.setPhone(rs.getString("phone"));
+                entity.setEmail(rs.getString("email"));
+                entity.setRoleId(rs.getLong("role_id"));
+                return entity;
+        };
+    }
+
+    @Override
+    protected String getTypeName() {
+        return "genre";
     }
 }

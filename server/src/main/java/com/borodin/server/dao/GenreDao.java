@@ -12,10 +12,6 @@ import java.sql.SQLException;
 @Repository
 public class GenreDao extends SimpleTableDao<Genre> {
 
-    public GenreDao() {
-        super(new Genre());
-    }
-
     @Override
     protected PreparedStatement createInsertStatement(Connection connection, Genre entity) {
         PreparedStatement ps = null;
@@ -36,6 +32,11 @@ public class GenreDao extends SimpleTableDao<Genre> {
 
     @Override
     protected RowMapper<Genre> getRowMapper() {
-        return new GenreMapper();
+        return GenreMapper.getGenreMapper();
+    }
+
+    @Override
+    protected String getTypeName() {
+        return "genre";
     }
 }

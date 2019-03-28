@@ -1,7 +1,6 @@
 package com.borodin.server.dao;
 
 import com.borodin.server.domain.Seance;
-import com.borodin.server.mapper.SeanceMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -61,6 +60,19 @@ public class SeanceDao extends Dao<Seance> {
 
     @Override
     protected RowMapper<Seance> getRowMapper() {
-        return new SeanceMapper();
+        return (rs, i) -> {
+            Seance entity = new Seance();
+            entity.setId(rs.getLong("id"));
+            entity.setPriceTicket(rs.getInt("price"));
+            entity.setDateAndTime(rs.getDate("date_and_time"));
+            entity.setFilm(new FilmDao().findById(rs.getLong("film_id")));
+            entity.setHall(new HallDao().findById(rs.getLong("hall_id")));
+            return entity;
+        };
+    }
+
+    @Override
+    protected String getTypeName() {
+        return "genre";
     }
 }

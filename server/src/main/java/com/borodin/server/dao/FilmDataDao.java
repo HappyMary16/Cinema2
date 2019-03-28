@@ -6,29 +6,25 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.List;
 
-public class FilmDataDao<T extends Entity> implements IFilmDataDao<T> {
+@Repository
+public abstract class FilmDataDao<T extends Entity> implements IFilmDataDao<T> {
 
     @Autowired
     protected JdbcTemplate jdbcTemplateObject;
-
-    private String type;
 
     public static final String GET_ALL_BY_ID = "SELECT * FROM film_%s INNER JOIN %s ON %s_id = id WHERE film_id = ?";
     public static final String DELETE_ALL_BY_ID = "DELETE FROM film_%s WHERE film_id = ?";
     public static final String INSERT_ALL_BY_ID = "INSERT INTO film_%s (film_id, %s_id) VALUES (?, ?)";
 
-    public FilmDataDao(String tableType) {
-        this.type = tableType;
-    }
-
     @Override
     public void insertDataByFilmId(List<T> data, Long filmId) {
-        String SQL = String.format(INSERT_ALL_BY_ID, type, type);
+        String SQL = String.format(INSERT_ALL_BY_ID, getTypeName(), getTypeName());
 
         for (Entity entity :
                 data) {
@@ -49,10 +45,10 @@ public class FilmDataDao<T extends Entity> implements IFilmDataDao<T> {
 
     @Override
     public List<T> getAllByFilmId(Long filmId, RowMapper<T> mapper) {
-        String sql = String.format(GET_ALL_BY_ID, type,
-                (type.equalsIgnoreCase("actor")
-                        || type.equalsIgnoreCase("director")
-                        ? "person" : type), type);
+        String sql = String.format(GET_ALL_BY_ID, getTypeName(),
+                (getTypeName().equalsIgnoreCase("actor")
+                        || getTypeName().equalsIgnoreCase("director")
+                        ? "person" : getTypeName()), getTypeName());
 
         return jdbcTemplateObject.query(connection -> {
             PreparedStatement ps = null;
@@ -68,7 +64,7 @@ public class FilmDataDao<T extends Entity> implements IFilmDataDao<T> {
 
     @Override
     public void deleteAllByFilmId(Long filmId) {
-        String sql = String.format(DELETE_ALL_BY_ID, type);
+        String sql = String.format(DELETE_ALL_BY_ID, getTypeName());
         jdbcTemplateObject.update(sql, filmId);
     }
 
@@ -77,4 +73,6 @@ public class FilmDataDao<T extends Entity> implements IFilmDataDao<T> {
         deleteAllByFilmId(filmId);
         insertDataByFilmId(newData, filmId);
     }
+
+    protected abstract String getTypeName();
 }
