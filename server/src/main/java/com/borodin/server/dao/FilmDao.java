@@ -1,7 +1,6 @@
 package com.borodin.server.dao;
 
 import com.borodin.server.domain.Film;
-import com.borodin.server.mapper.FilmMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -10,14 +9,9 @@ import org.springframework.stereotype.Repository;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Time;
 
 @Repository
 public class FilmDao extends Dao<Film> {
-
-    public FilmDao() {
-        super(new Film());
-    }
 
     @Override
     public Film update(Film entity) {
@@ -82,6 +76,26 @@ public class FilmDao extends Dao<Film> {
 
     @Override
     protected RowMapper<Film> getRowMapper() {
-        return new FilmMapper();
+        return (rs, i) -> {
+            Film entity = new Film();
+            entity.setId(rs.getLong("id"));
+            entity.setTitle(rs.getString("title"));
+            entity.setDescription(rs.getString("description"));
+            entity.setYear(rs.getInt("year"));
+            entity.setMinAge(rs.getInt("min_age"));
+            entity.setDuration(rs.getInt("duration"));
+            entity.setLanguage(new LanguageDao().findById(rs.getLong("film_language_id")));
+            entity.setFirstSeance(rs.getDate("first_seance"));
+            entity.setLastSeance(rs.getDate("last_seance"));
+            entity.setSmallPoster(rs.getString("small_poster"));
+            entity.setBigPoster(rs.getString("big_poster"));
+            entity.setTrailerLink(rs.getString("trailer_link"));
+            return entity;
+        };
+    }
+
+    @Override
+    protected String getTypeName() {
+        return "film";
     }
 }

@@ -1,21 +1,15 @@
 package com.borodin.server.dao;
 
 import com.borodin.server.domain.Language;
-import com.borodin.server.mapper.LanguageMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Repository
 public class LanguageDao extends SimpleTableDao<Language> {
-
-    public LanguageDao() {
-        super(new Language());
-    }
 
     @Override
     protected PreparedStatement createInsertStatement(Connection connection, Language entity) {
@@ -37,6 +31,16 @@ public class LanguageDao extends SimpleTableDao<Language> {
 
     @Override
     protected RowMapper<Language> getRowMapper() {
-        return new LanguageMapper();
+        return (rs, i) -> {
+            Language entity = new Language();
+            entity.setId(rs.getLong("id"));
+            entity.setLanguage(rs.getString("language"));
+            return entity;
+        };
+    }
+
+    @Override
+    protected String getTypeName() {
+        return "language";
     }
 }

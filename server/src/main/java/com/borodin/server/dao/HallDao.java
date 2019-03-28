@@ -1,7 +1,6 @@
 package com.borodin.server.dao;
 
 import com.borodin.server.domain.Hall;
-import com.borodin.server.mapper.HallMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -58,6 +57,18 @@ public class HallDao extends Dao<Hall> {
 
     @Override
     protected RowMapper<Hall> getRowMapper() {
-        return new HallMapper();
+        return (rs, i) -> {
+            Hall entity = new Hall();
+            entity.setId(rs.getLong("id"));
+            entity.setHeight(rs.getInt("height"));
+            entity.setWidth(rs.getInt("width"));
+            entity.setName(rs.getString("hall_name"));
+            return entity;
+        };
+    }
+
+    @Override
+    protected String getTypeName() {
+        return "hall";
     }
 }

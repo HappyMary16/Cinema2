@@ -13,8 +13,6 @@ import java.util.List;
 @Repository
 public abstract class Dao<T extends Entity> implements IDao<Long, T> {
 
-    private T object;
-
     @Autowired
     protected JdbcTemplate jdbcTemplateObject;
 
@@ -26,17 +24,10 @@ public abstract class Dao<T extends Entity> implements IDao<Long, T> {
 
     private final String SQL_SELECT_ALL_BY_COLUMN = "SELECT * FROM %s WHERE %s = ?";
 
-    public Dao() {
-    }
-
-    public Dao(T object) {
-        this.object = object;
-    }
-
     @Override
     public List<T> getAll() {
         return jdbcTemplateObject.query(
-                String.format(SQL_SELECT_ALL, object.getClass().getSimpleName()),
+                String.format(SQL_SELECT_ALL, getTypeName()),
                 getRowMapper());
     }
 
@@ -44,7 +35,7 @@ public abstract class Dao<T extends Entity> implements IDao<Long, T> {
     public T findById(Long id) {
         System.out.println(jdbcTemplateObject);
         return jdbcTemplateObject.queryForObject(
-                String.format(SQL_SELECT_BY_ID, object.getClass().getSimpleName()), new Object[]{id},
+                String.format(SQL_SELECT_BY_ID, getTypeName()), new Object[]{id},
                 getRowMapper());
     }
 
@@ -52,14 +43,14 @@ public abstract class Dao<T extends Entity> implements IDao<Long, T> {
     public void deleteById(Long id) {
         jdbcTemplateObject.update(
                 String.format(SQL_DELETE_BY_ID,
-                        object.getClass().getSimpleName()), id);
+                        getTypeName()), id);
     }
 
 
     @Override
     public List<T> findAllBy(String columnName, String value) {
         String SQL = String.format(
-                String.format(SQL_SELECT_ALL_BY_COLUMN, object.getClass().getSimpleName(), "%s"),
+                String.format(SQL_SELECT_ALL_BY_COLUMN, getTypeName(), "%s"),
                 columnName);
 
         return jdbcTemplateObject.query(connection -> {
@@ -83,7 +74,7 @@ public abstract class Dao<T extends Entity> implements IDao<Long, T> {
         }
 
         String SQL = String.format(
-                String.format(SQL_SELECT_ALL_BY_COLUMN, object.getClass().getSimpleName(), "%s"),
+                String.format(SQL_SELECT_ALL_BY_COLUMN, getTypeName(), "%s"),
                 columnAndValue[0][0]);
         StringBuilder sql = new StringBuilder(SQL);
 
@@ -111,26 +102,7 @@ public abstract class Dao<T extends Entity> implements IDao<Long, T> {
         }, getRowMapper());
     }
 
-    public T getObject() {
-        return object;
-    }
-
-    public String getSQL_DELETE_BY_ID() {
-        return SQL_DELETE_BY_ID;
-    }
-
-    public String getSQL_SELECT_ALL() {
-        return SQL_SELECT_ALL;
-    }
-
-    public String getSQL_SELECT_BY_ID() {
-        return SQL_SELECT_BY_ID;
-    }
-
-    public String getSQL_SELECT_ALL_BY_COLUMN() {
-        return SQL_SELECT_ALL_BY_COLUMN;
-    }
-
-
     protected abstract RowMapper<T> getRowMapper();
+    
+    protected abstract String getTypeName();
 }

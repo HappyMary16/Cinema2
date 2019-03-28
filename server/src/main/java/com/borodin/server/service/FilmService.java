@@ -7,6 +7,7 @@ import com.borodin.server.mapper.CountryMapper;
 import com.borodin.server.mapper.GenreMapper;
 import com.borodin.server.mapper.PersonMapper;
 import com.borodin.server.mapper.StudioMapper;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,11 +16,39 @@ import java.util.List;
 public class FilmService implements IService<Long, Film> {
 
     private static FilmDao filmDao = new FilmDao();
-    private static FilmDataDao<Genre> genreFilmDataDao = new FilmDataDao("genre");
-    private static FilmDataDao<Studio> studioFilmDataDao = new FilmDataDao("studio");
-    private static FilmDataDao<Person> actorFilmDataDao = new FilmDataDao("actor");
-    private static FilmDataDao<Person> directorFilmDataDao = new FilmDataDao("director");
-    private static FilmDataDao<Country> countryFilmDataDao = new FilmDataDao("country");
+
+    private static FilmDataDao<Genre> genreFilmDataDao = new FilmDataDao<Genre>() {
+        @Override
+        protected String getTypeName() {
+            return "genre";
+        }
+    };
+
+    private static FilmDataDao<Studio> studioFilmDataDao = new FilmDataDao<Studio>() {
+        @Override
+        protected String getTypeName() {
+            return "studio";
+        }
+    };
+    private static FilmDataDao<Person> actorFilmDataDao = new FilmDataDao<Person>() {
+        @Override
+        protected String getTypeName() {
+            return "actor";
+        }
+    };
+
+    private static FilmDataDao<Person> directorFilmDataDao = new FilmDataDao<Person>() {
+        @Override
+        protected String getTypeName() {
+            return "director";
+        }
+    };
+    private static FilmDataDao<Country> countryFilmDataDao = new FilmDataDao<Country>() {
+        @Override
+        protected String getTypeName() {
+            return "country";
+        }
+    };
 
     @Override
     public List<Film> getAll() {
@@ -55,11 +84,11 @@ public class FilmService implements IService<Long, Film> {
     }
 
     private void setFilmData(Film film) {
-        film.setGenres(genreFilmDataDao.getAllByFilmId(film.getId(), new GenreMapper()));
-        film.setCountries(countryFilmDataDao.getAllByFilmId(film.getId(), new CountryMapper()));
-        film.setStudios(studioFilmDataDao.getAllByFilmId(film.getId(), new StudioMapper()));
-        film.setActors(actorFilmDataDao.getAllByFilmId(film.getId(), new PersonMapper()));
-        film.setDirectors(directorFilmDataDao.getAllByFilmId(film.getId(), new PersonMapper()));
+        film.setGenres(genreFilmDataDao.getAllByFilmId(film.getId(), GenreMapper.getGenreMapper()));
+        film.setCountries(countryFilmDataDao.getAllByFilmId(film.getId(), CountryMapper.getCountryMapper()));
+        film.setStudios(studioFilmDataDao.getAllByFilmId(film.getId(), StudioMapper.getStudioMapper()));
+        film.setActors(actorFilmDataDao.getAllByFilmId(film.getId(), PersonMapper.getPersonMapper()));
+        film.setDirectors(directorFilmDataDao.getAllByFilmId(film.getId(), PersonMapper.getPersonMapper()));
     }
 
     @Override
