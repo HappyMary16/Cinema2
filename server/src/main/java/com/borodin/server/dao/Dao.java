@@ -14,7 +14,7 @@ import java.util.List;
 public abstract class Dao<T extends Entity> implements IDao<Long, T> {
 
     @Autowired
-    protected JdbcTemplate jdbcTemplateObject;
+    protected JdbcTemplate jdbcTemplate;
 
     private final String SQL_DELETE_BY_ID = "DELETE FROM %s WHERE id = ?";
 
@@ -26,22 +26,21 @@ public abstract class Dao<T extends Entity> implements IDao<Long, T> {
 
     @Override
     public List<T> getAll() {
-        return jdbcTemplateObject.query(
+        return jdbcTemplate.query(
                 String.format(SQL_SELECT_ALL, getTypeName()),
                 getRowMapper());
     }
 
     @Override
     public T findById(Long id) {
-        System.out.println(jdbcTemplateObject);
-        return jdbcTemplateObject.queryForObject(
+        return jdbcTemplate.queryForObject(
                 String.format(SQL_SELECT_BY_ID, getTypeName()), new Object[]{id},
                 getRowMapper());
     }
 
     @Override
     public void deleteById(Long id) {
-        jdbcTemplateObject.update(
+        jdbcTemplate.update(
                 String.format(SQL_DELETE_BY_ID,
                         getTypeName()), id);
     }
@@ -53,7 +52,7 @@ public abstract class Dao<T extends Entity> implements IDao<Long, T> {
                 String.format(SQL_SELECT_ALL_BY_COLUMN, getTypeName(), "%s"),
                 columnName);
 
-        return jdbcTemplateObject.query(connection -> {
+        return jdbcTemplate.query(connection -> {
             PreparedStatement ps = null;
 
             try {
@@ -82,7 +81,7 @@ public abstract class Dao<T extends Entity> implements IDao<Long, T> {
             sql.append("AND ").append(columnAndValue[i][0]).append(" = ?");
         }
 
-        return jdbcTemplateObject.query(connection -> {
+        return jdbcTemplate.query(connection -> {
             PreparedStatement ps = null;
 
             try {

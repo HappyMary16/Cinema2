@@ -25,7 +25,7 @@ public class LanguageDao extends SimpleTableDao<Language> {
 
     @Override
     public Language update(Language entity) {
-        jdbcTemplateObject.update(SQL_UPDATE, entity.getLanguage(), entity.getId());
+        jdbcTemplate.update(SQL_UPDATE, entity.getLanguage(), entity.getId());
         return entity;
     }
 

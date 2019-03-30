@@ -26,7 +26,7 @@ public class GenreDao extends SimpleTableDao<Genre> {
 
     @Override
     public Genre update(Genre entity) {
-        jdbcTemplateObject.update(SQL_UPDATE, entity.getGenre(), entity.getId());
+        jdbcTemplate.update(SQL_UPDATE, entity.getGenre(), entity.getId());
         return entity;
     }
 

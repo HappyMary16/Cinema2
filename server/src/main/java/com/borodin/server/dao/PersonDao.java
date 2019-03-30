@@ -19,7 +19,7 @@ public class PersonDao extends Dao<Person>{
                 "SET first_name = ?, last_name = ?, role_id = ? " +
                 "WHERE id = ?";
 
-        jdbcTemplateObject.update(
+        jdbcTemplate.update(
                 SQL,
                 entity.getFirstName(),
                 entity.getLastName(),
@@ -36,7 +36,7 @@ public class PersonDao extends Dao<Person>{
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        jdbcTemplateObject.update(
+        jdbcTemplate.update(
                 connection -> {
                     PreparedStatement ps = null;
                     try {

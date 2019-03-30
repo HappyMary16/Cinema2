@@ -1,7 +1,6 @@
 package com.borodin.server.dao;
 
 import com.borodin.server.domain.Entity;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -25,7 +24,7 @@ public abstract class SimpleTableDao<T extends Entity> extends Dao<T> {
     public T create(T entity) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        jdbcTemplateObject.update(connection -> createInsertStatement(connection, entity), keyHolder);
+        jdbcTemplate.update(connection -> createInsertStatement(connection, entity), keyHolder);
 
         entity.setId(keyHolder.getKey().longValue());
 

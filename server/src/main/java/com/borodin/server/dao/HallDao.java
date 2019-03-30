@@ -18,7 +18,7 @@ public class HallDao extends Dao<Hall> {
                 "SET hall_name = ?, width = ?, height = ? " +
                 "WHERE id = ?";
 
-        jdbcTemplateObject.update(
+        jdbcTemplate.update(
                 SQL,
                 entity.getName(),
                 entity.getWidth(),
@@ -35,7 +35,7 @@ public class HallDao extends Dao<Hall> {
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        jdbcTemplateObject.update(
+        jdbcTemplate.update(
                 connection -> {
                     PreparedStatement ps = null;
                     try {
