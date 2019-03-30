@@ -26,7 +26,7 @@ public class StudioDao extends SimpleTableDao<Studio> {
 
     @Override
     public Studio update(Studio entity) {
-        jdbcTemplateObject.update(SQL_UPDATE, entity.getStudio(), entity.getId());
+        jdbcTemplate.update(SQL_UPDATE, entity.getStudio(), entity.getId());
         return entity;
     }
 

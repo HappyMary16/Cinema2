@@ -2,21 +2,15 @@ package com.borodin.server.dao;
 
 import com.borodin.server.domain.Entity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.sql.*;
 import java.util.List;
 
 @Repository
-public abstract class FilmDataDao<T extends Entity> implements IFilmDataDao<T> {
-
-    @Autowired
-    protected JdbcTemplate jdbcTemplateObject;
+public abstract class FilmDataDao<T extends Entity> extends Dao<T> implements IFilmDataDao<T> {
 
     public static final String GET_ALL_BY_ID = "SELECT * FROM film_%s INNER JOIN %s ON %s_id = id WHERE film_id = ?";
     public static final String DELETE_ALL_BY_ID = "DELETE FROM film_%s WHERE film_id = ?";
@@ -28,7 +22,7 @@ public abstract class FilmDataDao<T extends Entity> implements IFilmDataDao<T> {
 
         for (Entity entity :
                 data) {
-            jdbcTemplateObject.update(
+            jdbcTemplate.update(
                     connection -> {
                         PreparedStatement ps = null;
                         try {
@@ -50,7 +44,7 @@ public abstract class FilmDataDao<T extends Entity> implements IFilmDataDao<T> {
                         || getTypeName().equalsIgnoreCase("director")
                         ? "person" : getTypeName()), getTypeName());
 
-        return jdbcTemplateObject.query(connection -> {
+        return jdbcTemplate.query(connection -> {
             PreparedStatement ps = null;
             try {
                 ps = connection.prepareStatement(sql);
@@ -65,7 +59,7 @@ public abstract class FilmDataDao<T extends Entity> implements IFilmDataDao<T> {
     @Override
     public void deleteAllByFilmId(Long filmId) {
         String sql = String.format(DELETE_ALL_BY_ID, getTypeName());
-        jdbcTemplateObject.update(sql, filmId);
+        jdbcTemplate.update(sql, filmId);
     }
 
     @Override
@@ -75,4 +69,19 @@ public abstract class FilmDataDao<T extends Entity> implements IFilmDataDao<T> {
     }
 
     protected abstract String getTypeName();
+
+    @Override
+    protected RowMapper<T> getRowMapper() {
+        return null;
+    }
+
+    @Override
+    public T update(T entity) {
+        return null;
+    }
+
+    @Override
+    public T create(T entity) {
+        return null;
+    }
 }

@@ -20,7 +20,7 @@ public class FilmDao extends Dao<Film> {
                 "first_seance = ?, last_seance = ?, small_poster = ?, big_poster = ?, trailer_link = ? " +
                 "WHERE id = ?";
 
-        jdbcTemplateObject.update(
+        jdbcTemplate.update(
                 SQL,
                 entity.getTitle(),
                 entity.getDescription(),
@@ -46,7 +46,7 @@ public class FilmDao extends Dao<Film> {
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        jdbcTemplateObject.update(
+        jdbcTemplate.update(
                 connection -> {
                     PreparedStatement ps = null;
                     try {

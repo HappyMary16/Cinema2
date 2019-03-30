@@ -26,7 +26,7 @@ public class CountryDao extends SimpleTableDao<Country> {
 
     @Override
     public Country update(Country entity) {
-        jdbcTemplateObject.update(SQL_UPDATE, entity.getCountry(), entity.getId());
+        jdbcTemplate.update(SQL_UPDATE, entity.getCountry(), entity.getId());
         return entity;
     }
 

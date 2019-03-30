@@ -19,7 +19,7 @@ public class SeanceDao extends Dao<Seance> {
                 "SET film_id = ?, hall_id = ?, price = ?, date_and_time = ? " +
                 "WHERE id = ?";
 
-        jdbcTemplateObject.update(
+        jdbcTemplate.update(
                 SQL,
                 entity.getFilm().getId(),
                 entity.getHall().getId(),
@@ -37,7 +37,7 @@ public class SeanceDao extends Dao<Seance> {
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        jdbcTemplateObject.update(
+        jdbcTemplate.update(
                 connection -> {
                     PreparedStatement ps = null;
                     try {

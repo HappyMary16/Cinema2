@@ -7,6 +7,30 @@
     <groupId>com.borodin</groupId>
     <artifactId>cinema2</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <spring-boot-starter-jdbc>5.1.5.RELEASE</spring-boot-starter-jdbc>
+        <spring-boot-starter-web>2.1.3.RELEASE</spring-boot-starter-web>
+        <spring-boot-devtools>2.1.3.RELEASE</spring-boot-devtools>
+        <spring-boot-starter-test>2.1.3.RELEASE</spring-boot-starter-test>
+        <org.springframework>5.1.5.RELEASE</org.springframework>
+        <org.liquibase>3.6.3</org.liquibase>
+        <mysql>8.0.15</mysql>
+        <org.projectlombok>1.18.0</org.projectlombok>
+
+        <frontendSrcDir>${project.basedir}/src/main/app</frontendSrcDir>
+
+        <node.version>v6.9.1</node.version>
+        <npm.version>v0.24.6</npm.version>
+        <frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
+
+    </properties>
+    <modules>
+        <module>server</module>
+        <module>client</module>
+    </modules>
+
 
 
 </project>
