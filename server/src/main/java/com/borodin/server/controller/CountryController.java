@@ -1,8 +1,8 @@
 package com.borodin.server.controller;
 
-import com.borodin.server.dao.CountryDao;
+import com.borodin.server.dao.SimpleTableDao;
 import com.borodin.server.domain.Country;
-import com.borodin.server.domain.Genre;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,7 +12,8 @@ import java.util.List;
 @RequestMapping(value = "/countries")
 public class CountryController {
 
-    private CountryDao countryDao = new CountryDao();
+    @Autowired
+    private SimpleTableDao<Country> countryDao;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Country getCountry(@PathVariable(value = "id") Long id) {

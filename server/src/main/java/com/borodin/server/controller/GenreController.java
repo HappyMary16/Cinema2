@@ -1,7 +1,8 @@
 package com.borodin.server.controller;
 
-import com.borodin.server.dao.GenreDao;
+import com.borodin.server.dao.SimpleTableDao;
 import com.borodin.server.domain.Genre;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,7 +12,8 @@ import java.util.List;
 @RequestMapping(value = "/genres")
 public class GenreController {
 
-    private GenreDao genreDao = new GenreDao();
+    @Autowired
+    private SimpleTableDao<Genre> genreDao;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Genre getGenre(@PathVariable(value = "id") Long id) {

@@ -81,6 +81,6 @@ public class UserDao extends Dao<User> {
 
     @Override
     protected String getTypeName() {
-        return "genre";
+        return "user";
     }
 }

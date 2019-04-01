@@ -1,7 +1,8 @@
 package com.borodin.server.controller;
 
 import com.borodin.server.domain.Hall;
-import com.borodin.server.service.HallService;
+import com.borodin.server.service.IService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,7 +12,8 @@ import java.util.List;
 @RequestMapping(value = "/halls")
 public class HallController {
 
-    private HallService hallService = new HallService();
+    @Autowired
+    private IService<Long, Hall> hallService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Hall getHall(@PathVariable(value = "id") Long id) {

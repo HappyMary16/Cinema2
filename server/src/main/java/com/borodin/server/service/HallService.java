@@ -77,7 +77,7 @@ public class HallService implements IService<Long, Hall> {
         boolean[][] placement = new boolean[entity.getHeight()][entity.getWidth()];
 
         for (Integer[] place :
-                placementDao.getAll(entity.getId())) {
+                placementDao.findAllByHallId(entity.getId())) {
             placement[place[0]][place[1]] = true;
         }
 

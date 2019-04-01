@@ -1,7 +1,8 @@
 package com.borodin.server.controller;
 
-import com.borodin.server.dao.LanguageDao;
+import com.borodin.server.dao.SimpleTableDao;
 import com.borodin.server.domain.Language;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,7 +12,8 @@ import java.util.List;
 @RequestMapping(value = "/languages")
 public class LanguageController {
 
-    private LanguageDao languageDao = new LanguageDao();
+    @Autowired
+    private SimpleTableDao<Language> languageDao;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Language getLanguage(@PathVariable(value = "id") Long id) {

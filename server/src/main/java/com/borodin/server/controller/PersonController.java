@@ -1,9 +1,8 @@
 package com.borodin.server.controller;
 
-import com.borodin.server.dao.PersonDao;
-import com.borodin.server.domain.Genre;
+import com.borodin.server.dao.IDao;
 import com.borodin.server.domain.Person;
-import com.borodin.server.domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,7 +12,8 @@ import java.util.List;
 @RequestMapping(value = "/persons")
 public class PersonController {
 
-    private PersonDao personDao = new PersonDao();
+    @Autowired
+    private IDao<Long, Person> personDao;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Person getPerson(@PathVariable(value = "id") Long id) {

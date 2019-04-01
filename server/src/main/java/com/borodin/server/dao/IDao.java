@@ -4,7 +4,7 @@ import com.borodin.server.domain.Entity;
 
 import java.util.List;
 
-public interface IDao <K, V extends Entity>{
+public interface IDao <K, V>{
 
     List<V> getAll();
 
