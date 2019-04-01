@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Repository
-public class PlacementDao extends Dao<Entity> implements IPlacementDao {
+public class PlacementDao extends Dao<Integer[]> {
 
     private static final String SELECT_ALL_BY_HALL_ID = "SELECT * FROM placement WHERE hall_id = ?";
 
@@ -20,21 +20,20 @@ public class PlacementDao extends Dao<Entity> implements IPlacementDao {
 
     private static final String DELETE_ALL_BY_HALL_ID = "DELETE FROM placement WHERE hall_id = ?";
 
-    @Override
-    public List<Integer[]> getAll(Long hallId) {
+    public List<Integer[]> findAllByHallId(Long hallId) {
 
-        return jdbcTemplate.query(connection -> {
-            PreparedStatement ps = null;
-            try {
-                ps = connection.prepareStatement(SELECT_ALL_BY_HALL_ID);
-                ps.setLong(1, hallId);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            return ps;}, new PlacementMapper());
+        return findAllBy("hall_id", String.valueOf(hallId));
+//        return jdbcTemplate.query(connection -> {
+//            PreparedStatement ps = null;
+//            try {
+//                ps = connection.prepareStatement(SELECT_ALL_BY_HALL_ID);
+//                ps.setLong(1, hallId);
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//            return ps;}, new PlacementMapper());
     }
 
-    @Override
     public void insertAll(List<Integer[]> places, Long hallId) {
         for (Integer[] place :
                 places) {
@@ -43,34 +42,32 @@ public class PlacementDao extends Dao<Entity> implements IPlacementDao {
 
     }
 
-    @Override
     public void deleteAll(Long id) {
         jdbcTemplate.update(DELETE_ALL_BY_HALL_ID, id);
     }
 
-    @Override
     public void updateAll(List<Integer[]> places, Long id) {
         deleteAll(id);
         insertAll(places, id);
     }
 
     @Override
-    protected RowMapper<Entity> getRowMapper() {
+    protected RowMapper<Integer[]> getRowMapper() {
         return null;
     }
 
     @Override
     protected String getTypeName() {
-        return null;
+        return "placement";
     }
 
     @Override
-    public Entity update(Entity entity) {
-        return null;
+    public Integer[] update(Integer[] entity) {
+        return new Integer[0];
     }
 
     @Override
-    public Entity create(Entity entity) {
-        return null;
+    public Integer[] create(Integer[] entity) {
+        return new Integer[0];
     }
 }

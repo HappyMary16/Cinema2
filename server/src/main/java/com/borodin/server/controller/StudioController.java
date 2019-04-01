@@ -1,8 +1,8 @@
 package com.borodin.server.controller;
 
-import com.borodin.server.dao.StudioDao;
-import com.borodin.server.domain.Genre;
+import com.borodin.server.dao.SimpleTableDao;
 import com.borodin.server.domain.Studio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,7 +12,8 @@ import java.util.List;
 @RequestMapping(value = "/studios")
 public class StudioController {
 
-    private StudioDao studioDao = new StudioDao();
+    @Autowired
+    private SimpleTableDao<Studio> studioDao;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Studio getStudio(@PathVariable(value = "id") Long id) {

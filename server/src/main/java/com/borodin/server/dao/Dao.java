@@ -1,6 +1,5 @@
 package com.borodin.server.dao;
 
-import com.borodin.server.domain.Entity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -11,7 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Repository
-public abstract class Dao<T extends Entity> implements IDao<Long, T> {
+public abstract class Dao<T> implements IDao<Long, T> {
 
     @Autowired
     protected JdbcTemplate jdbcTemplate;

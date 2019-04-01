@@ -1,7 +1,8 @@
 package com.borodin.server.controller;
 
-import com.borodin.server.dao.SeanceDao;
+import com.borodin.server.dao.IDao;
 import com.borodin.server.domain.Seance;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,7 +12,8 @@ import java.util.List;
 @RequestMapping(value = "/seances")
 public class SeanceController {
 
-    private SeanceDao seanceDao = new SeanceDao();
+    @Autowired
+    private IDao<Long, Seance> seanceDao;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Seance getSeance(@PathVariable(value = "id") Long id) {

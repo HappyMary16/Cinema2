@@ -1,7 +1,8 @@
 package com.borodin.server.controller;
 
 import com.borodin.server.domain.Film;
-import com.borodin.server.service.FilmService;
+import com.borodin.server.service.IService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,7 +12,8 @@ import java.util.List;
 @RequestMapping(value = "/films")
 public class FilmController {
 
-    private FilmService filmService = new FilmService();
+    @Autowired
+    private IService<Long, Film> filmService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Film getFilm(@PathVariable(value = "id") Long id) {
