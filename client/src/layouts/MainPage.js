@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import AdminMenu from '../components/admin/AdminMenu';
 import AddUser from '../components/admin/users/AddUser';
 import UserList from '../components/admin/users/UserList';
 import AdminList from '../components/admin/users/AdminList';
@@ -26,11 +25,12 @@ import SeanceLIst from "../components/admin/seances/SeanceLIst";
 import AddSeance from "../components/admin/seances/AddSeance";
 import SeanceCard from "../components/admin/seances/SeanceCard";
 import UpdateSeance from "../components/admin/seances/UpdateSeance";
+import LogIn from "../components/login/LogIn";
 
 export default () => (
     <div className='container'>
         <Switch>
-            <Route exact path='/' component={AdminMenu}/>
+            <Route exact path='/' component={LogIn}/>
 
             <Route path='/add_user' component={AddUser}/>
             <Route path='/user_list' component={UserList}/>
